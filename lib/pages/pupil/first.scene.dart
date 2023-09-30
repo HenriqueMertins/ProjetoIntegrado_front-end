@@ -71,7 +71,24 @@ class _choicePageState extends State<choicePupil> {
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 60.0),
+              ButtonTheme(
+                height: 60.0,
+                child: ElevatedButton(
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/calendarPupil")
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(
+                        255, 243, 16, 0), 
+                  ),
+                  child: const Text(
+                    "Meus Dados",
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

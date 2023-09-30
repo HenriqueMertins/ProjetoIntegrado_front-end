@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trainingcallendar/pages/pupil/my.date.dart';
 
 import '../pages/choice.login.dart';
 import '../pages/professor/login.page.professor.dart';
@@ -25,6 +26,9 @@ class RouteGenerator {
       case "/calendarPupil":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const calendarPage());
+      case "/myDatePupil":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const myDate());
       default:
         return _errorRoute();
     }
