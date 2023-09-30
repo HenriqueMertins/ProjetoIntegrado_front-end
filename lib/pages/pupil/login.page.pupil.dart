@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPupilPage extends StatefulWidget {
+  const LoginPupilPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPupilPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPupilPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Login"),
-        // leading: const IconButton(
-        //   icon: Icon(Icons.arrow_back),
-        //   onPressed: ()  {
-        //
-        //   }
-        // ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(

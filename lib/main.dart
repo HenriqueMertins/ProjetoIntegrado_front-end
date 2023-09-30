@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trainingcallendar/pages/choice.login.dart';
-import 'package:trainingcallendar/pages/login.page.dart';
-// import 'package:trainingcallendar/pages/login.page.dart';
-// import 'package:trainingcallendar/pages/choice.login.dart';
-// import 'package:trainingcallendar/pages/pupil/first.scene.dart';
-import 'package:trainingcallendar/pages/pupil/calendar.dart';
 import 'package:trainingcallendar/route/RouteGenerator.dart';
 
 

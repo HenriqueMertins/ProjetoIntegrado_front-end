@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../pages/choice.login.dart';
-import '../pages/login.page.dart';
+import '../pages/professor/login.page.professor.dart';
 import '../pages/pupil/calendar.dart';
 import '../pages/pupil/first.scene.dart';
+import '../pages/pupil/login.page.pupil.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,15 +13,15 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(
             settings: settings, builder: (_) => const choicePage());
-      case "/LoginScreen":
+      case "/loginProfessorPage":
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const LoginPage());
+            settings: settings, builder: (_) => const LoginProfessorPage());
       case "/choicePupil":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const choicePupil());
-      case "/calendarPage":
+      case "/LoginPupilPage":
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const calendarPage());
+            settings: settings, builder: (_) => const LoginPupilPage());
       default:
         return _errorRoute();
     }
@@ -30,7 +31,7 @@ class RouteGenerator {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Erro'),
+          title: const Text('Erro'),
         ),
         body: const Center(
           child: Text('Página não encontrada!'),

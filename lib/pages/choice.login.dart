@@ -15,7 +15,7 @@ class _choicePageState extends State<choicePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Training Calendar"),
+        title: const Text("Training Calendar"),
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
@@ -39,7 +39,7 @@ class _choicePageState extends State<choicePage> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushNamed("/LoginScreen")
+                    Navigator.of(context).pushNamed("/loginProfessorPage")
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 16, 0),
@@ -55,7 +55,7 @@ class _choicePageState extends State<choicePage> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushReplacementNamed("/calendarPage")
+                    Navigator.of(context).pushNamed("/LoginPupilPage")
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 16, 0),
