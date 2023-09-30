@@ -13,6 +13,16 @@ class _choicePageState extends State<choicePupil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(""),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -34,7 +44,9 @@ class _choicePageState extends State<choicePupil> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/calendarPupil")
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
                         255, 243, 16, 0), 

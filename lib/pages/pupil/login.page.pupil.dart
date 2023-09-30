@@ -13,7 +13,7 @@ class _LoginPageState extends State<LoginPupilPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Login"),
+        title: const Text("Login Aluno"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -57,7 +57,9 @@ class _LoginPageState extends State<LoginPupilPage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/firstScenePupil")
+                  },
                   child: const Text(
                     "Entrar",
                     style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),

@@ -16,12 +16,15 @@ class RouteGenerator {
       case "/loginProfessorPage":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const LoginProfessorPage());
-      case "/choicePupil":
-        return MaterialPageRoute(
-            settings: settings, builder: (_) => const choicePupil());
       case "/LoginPupilPage":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const LoginPupilPage());
+      case "/firstScenePupil":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const choicePupil());
+      case "/calendarPupil":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const calendarPage());
       default:
         return _errorRoute();
     }
