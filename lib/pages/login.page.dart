@@ -11,6 +11,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Login"),
+        // leading: const IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: ()  {
+        //
+        //   }
+        // ),
+      ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
         padding: const EdgeInsets.all(10),

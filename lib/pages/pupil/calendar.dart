@@ -35,6 +35,9 @@ class _calendarPageState extends State<calendarPage> {
       appBar: AppBar(
         title: const Text("Training Calendar"),
         backgroundColor: const Color.fromARGB(255, 196, 188, 188),
+        // leading: BackButton(
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
       ),
       body: ListView(
         children: [

@@ -13,6 +13,10 @@ class _choicePageState extends State<choicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Training Calendar"),
+      ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -23,10 +27,10 @@ class _choicePageState extends State<choicePage> {
             children: <Widget>[
               const Center(
                 child: Text(
-                  "Training Calendar", 
+                  "Training Calendar",
                   style: TextStyle(
-                    fontSize: 24.0, 
-                    fontWeight: FontWeight.bold, 
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -34,10 +38,11 @@ class _choicePageState extends State<choicePage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/LoginScreen")
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 243, 16, 0), 
+                    backgroundColor: const Color.fromARGB(255, 243, 16, 0),
                   ),
                   child: const Text(
                     "Personal",
@@ -49,10 +54,11 @@ class _choicePageState extends State<choicePage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushReplacementNamed("/calendarPage")
+                  },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 243, 16, 0), 
+                    backgroundColor: const Color.fromARGB(255, 243, 16, 0),
                   ),
                   child: const Text(
                     "Aluno",
