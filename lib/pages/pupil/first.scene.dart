@@ -77,7 +77,7 @@ class _choicePageState extends State<choicePupil> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushNamed("/calendarPupil")
+                    Navigator.of(context).pushNamed("/myDatePupil")
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
