@@ -10,6 +10,9 @@ class LoginPupilPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPupilPage> {
+  final controlCpfField = TextEditingController();
+  final controlSenhaField = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,7 @@ class _LoginPageState extends State<LoginPupilPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
+                controller: controlCpfField,
                 autofocus: true,
                 keyboardType: TextInputType.emailAddress,
                 style: const TextStyle(
@@ -44,6 +48,7 @@ class _LoginPageState extends State<LoginPupilPage> {
               ),
               const Divider(),
               TextFormField(
+                controller: controlSenhaField,
                 autofocus: true,
                 obscureText: true,
                 keyboardType: TextInputType.number,
@@ -59,11 +64,7 @@ class _LoginPageState extends State<LoginPupilPage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {
-                  AlunoService().login("1345534650", "Teste2")
-
-                  // Navigator.of(context).pushNamed("/firstScenePupil")
-                },
+                  onPressed: _loginPress,
                   child: const Text(
                     "Entrar",
                     style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),
@@ -72,8 +73,33 @@ class _LoginPageState extends State<LoginPupilPage> {
               )
             ],
           ),
-        ),)
-      ,
+        ),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    controlCpfField.dispose();
+    controlSenhaField.dispose();
+    super.dispose();
+  }
+
+  void _loginPress() async {
+    try {
+      var login = AlunoService()
+          .login(controlCpfField.text, controlSenhaField.text)
+          .then((value) => Navigator.of(context).pushNamed("/firstScenePupil"));
+    } catch (e) {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Não foi possível realizar autenticação'),
+          );
+        },
+      );
+    }
   }
 }
