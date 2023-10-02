@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trainingcallendar/restful/client/AlunoService.dart';
+import '../../restful/client/AlunoService.dart';
 
 class LoginPupilPage extends StatefulWidget {
   const LoginPupilPage({super.key});
@@ -58,8 +60,10 @@ class _LoginPageState extends State<LoginPupilPage> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushNamed("/firstScenePupil")
-                  },
+                  AlunoService().login("1345534650", "Teste2")
+
+                  // Navigator.of(context).pushNamed("/firstScenePupil")
+                },
                   child: const Text(
                     "Entrar",
                     style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),
@@ -68,8 +72,8 @@ class _LoginPageState extends State<LoginPupilPage> {
               )
             ],
           ),
-        ),
-      ),
+        ),)
+      ,
     );
   }
 }
