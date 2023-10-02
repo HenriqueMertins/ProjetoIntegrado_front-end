@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class choicePupil extends StatefulWidget {
-  const choicePupil({super.key});
+class choiceProfessor extends StatefulWidget {
+  const choiceProfessor({super.key});
 
   @override
-  State<choicePupil> createState() => _choicePupilPageState();
+  State<choiceProfessor> createState() => _choiceProfessorPageState();
 }
 
 // ignore: camel_case_types
-class _choicePupilPageState extends State<choicePupil> {
+class _choiceProfessorPageState extends State<choiceProfessor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +52,7 @@ class _choicePupilPageState extends State<choicePupil> {
                         255, 243, 16, 0), 
                   ),
                   child: const Text(
-                    "Minha Agenda",
+                    "Alunos",
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
@@ -67,28 +67,12 @@ class _choicePupilPageState extends State<choicePupil> {
                         255, 243, 16, 0), 
                   ),
                   child: const Text(
-                    "Meu Professor",
+                    "Cadastro Novo Aluno",
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
               ),
               const SizedBox(height: 60.0),
-              ButtonTheme(
-                height: 60.0,
-                child: ElevatedButton(
-                  onPressed: () => {
-                    Navigator.of(context).pushNamed("/myDatePupil")
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(
-                        255, 243, 16, 0), 
-                  ),
-                  child: const Text(
-                    "Meus Dados",
-                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

@@ -57,7 +57,9 @@ class _LoginPageState extends State<LoginProfessorPage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/choiceProfessor")
+                  },
                   child: const Text(
                     "Entrar",
                     style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),

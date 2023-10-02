@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trainingcallendar/pages/pupil/myDate.dart';
 
 import '../pages/choiceLogin.dart';
+import '../pages/professor/choiceProfessor.dart';
 import '../pages/professor/loginProfessor.dart';
 import '../pages/pupil/calendar.dart';
 import '../pages/pupil/choicePupil.dart';
@@ -13,6 +14,7 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
+            // settings: settings, builder: (_) => const choiceProfessor());
             settings: settings, builder: (_) => const choicePage());
       case "/loginProfessorPage":
         return MaterialPageRoute(
@@ -29,6 +31,9 @@ class RouteGenerator {
       case "/myDatePupil":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const myDate());
+      case "/choiceProfessor":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const choiceProfessor());
       default:
         return _errorRoute();
     }
