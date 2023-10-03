@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_session_manager: ^1.0.3
   http: ^1.1.0
   json_annotation: ^4.8.1
   table_calendar: ^3.0.9

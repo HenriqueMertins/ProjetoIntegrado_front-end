@@ -39,7 +39,9 @@ class _myDateState extends State<myDate> {
         title: const Text("Meus Dados"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => {Navigator.of(context).pushNamed("/myDatePupil")},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
       ),
       body: Center(
