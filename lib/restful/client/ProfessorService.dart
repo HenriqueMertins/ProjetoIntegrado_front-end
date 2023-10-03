@@ -8,8 +8,7 @@ import '../../constants/WebService.dart';
 class ProfessorService {
   Future<LoginRetDTO> login(String cpf, String senha) async {
     LoginDTO loginDTO = LoginDTO(cpf: cpf, senha: senha);
-    print("$cpf $senha");
-    final response = await http.post(Uri.parse('$SERVIDOR/personal/login'), 
+    final response = await http.post(Uri.parse('$SERVIDOR/personal/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

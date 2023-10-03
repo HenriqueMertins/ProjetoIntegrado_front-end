@@ -1,5 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
+import 'package:trainingcallendar/restful/json/LoginDTO.dart';
+
+import '../../restful/json/LoginRetDTO.dart';
 
 class LoginPupilPage extends StatefulWidget {
   const LoginPupilPage({super.key});
@@ -86,16 +92,28 @@ class _LoginPageState extends State<LoginPupilPage> {
   }
 
   void _loginPress() async {
-    AlunoService()
+    var catchError = AlunoService()
         .login(controlCpfField.text, controlSenhaField.text)
-        .then((value) => {Navigator.of(context).pushNamed("/firstScenePupil"))
-        .catchError((onError) => showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  content: Text('Não foi possível realizar autenticação'),
-                );
-              },
-            ));
+        .then((loginRetDTO) => _go(loginRetDTO))
+        .catchError((onError) => _fail());
+  }
+
+  void _go(LoginRetDTO loginDTO) async {
+    SessionManager().set("token", loginDTO.token);
+    SessionManager().set("type", "pupil");
+    await Navigator.of(context).pushNamed("/firstScenePupil");
+  }
+
+  void _fail() async {
+    SessionManager().set("token", "");
+    SessionManager().set("type", "");
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          content: Text('Não foi possível realizar autenticação'),
+        );
+      },
+    );
   }
 }
