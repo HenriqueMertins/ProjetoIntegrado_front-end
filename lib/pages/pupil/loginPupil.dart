@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
-import 'package:trainingcallendar/restful/json/LoginDTO.dart';
 
 import '../../restful/json/LoginRetDTO.dart';
 
@@ -107,7 +106,7 @@ class _LoginPageState extends State<LoginPupilPage> {
   void _fail() async {
     SessionManager().set("token", "");
     SessionManager().set("type", "");
-    return showDialog(
+    return await showDialog(
       context: context,
       builder: (context) {
         return const AlertDialog(
