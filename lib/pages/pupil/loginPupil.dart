@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
-import '../../restful/client/AlunoService.dart';
 
 class LoginPupilPage extends StatefulWidget {
   const LoginPupilPage({super.key});
@@ -87,9 +86,9 @@ class _LoginPageState extends State<LoginPupilPage> {
   }
 
   void _loginPress() async {
-    var login = AlunoService()
+    AlunoService()
         .login(controlCpfField.text, controlSenhaField.text)
-        .then((value) => Navigator.of(context).pushNamed("/firstScenePupil"))
+        .then((value) => {Navigator.of(context).pushNamed("/firstScenePupil"))
         .catchError((onError) => showDialog(
               context: context,
               builder: (context) {
