@@ -87,19 +87,16 @@ class _LoginPageState extends State<LoginPupilPage> {
   }
 
   void _loginPress() async {
-    try {
-      var login = AlunoService()
-          .login(controlCpfField.text, controlSenhaField.text)
-          .then((value) => Navigator.of(context).pushNamed("/firstScenePupil"));
-    } catch (e) {
-      return showDialog(
-        context: context,
-        builder: (context) {
-          return const AlertDialog(
-            content: Text('Não foi possível realizar autenticação'),
-          );
-        },
-      );
-    }
+    var login = AlunoService()
+        .login(controlCpfField.text, controlSenhaField.text)
+        .then((value) => Navigator.of(context).pushNamed("/firstScenePupil"))
+        .catchError((onError) => showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  content: Text('Não foi possível realizar autenticação'),
+                );
+              },
+            ));
   }
 }
