@@ -30,7 +30,7 @@ class RouteGenerator {
             settings: settings, builder: (_) => const calendarPage());
       case "/myDatePupil":
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const myDate());
+            settings: settings, builder: (_) => const myDate()); //ta errado
       case "/choiceProfessor":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const choiceProfessor());

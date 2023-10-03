@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:trainingcallendar/restful/client/ProfessorService.dart';
+import '../../restful/client/ProfessorService.dart';
 
 class LoginProfessorPage extends StatefulWidget {
   const LoginProfessorPage({super.key});
@@ -8,6 +10,9 @@ class LoginProfessorPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginProfessorPage> {
+  final controlCpfField = TextEditingController();
+  final controlSenhaField = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,21 +35,23 @@ class _LoginPageState extends State<LoginProfessorPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
+                controller: controlCpfField,
                 autofocus: true,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.number,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
                 decoration: const InputDecoration(
-                    labelText: "E-mail",
+                    labelText: "CPF",
                     labelStyle: TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 30)),
               ),
               const Divider(),
               TextFormField(
+                controller: controlSenhaField,
                 autofocus: true,
                 obscureText: true,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
                 decoration: const InputDecoration(
@@ -57,9 +64,7 @@ class _LoginPageState extends State<LoginProfessorPage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {
-                    Navigator.of(context).pushNamed("/choiceProfessor")
-                  },
+                  onPressed: _loginPress,
                   child: const Text(
                     "Entrar",
                     style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),
@@ -72,4 +77,29 @@ class _LoginPageState extends State<LoginProfessorPage> {
       ),
     );
   }
+
+    @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    controlCpfField.dispose();
+    controlSenhaField.dispose();
+    super.dispose();
+  }
+
+  void _loginPress() async {
+    var login = ProfessorService()
+        .login(controlCpfField.text, controlSenhaField.text)
+        .then((value) => Navigator.of(context).pushNamed("/choiceProfessor"))
+        .catchError((onError) => showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  content: Text('Não foi possível realizar autenticação'),
+                );
+              },
+            ));
+  }
 }
+
+
+
