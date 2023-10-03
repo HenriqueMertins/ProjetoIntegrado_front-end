@@ -37,11 +37,11 @@ class _LoginPageState extends State<LoginPupilPage> {
               TextFormField(
                 controller: controlCpfField,
                 autofocus: true,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.number,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
                 decoration: const InputDecoration(
-                    labelText: "E-mail",
+                    labelText: "CPF",
                     labelStyle: TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontSize: 30)),
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPupilPage> {
                 controller: controlSenhaField,
                 autofocus: true,
                 obscureText: true,
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255), fontSize: 20),
                 decoration: const InputDecoration(
