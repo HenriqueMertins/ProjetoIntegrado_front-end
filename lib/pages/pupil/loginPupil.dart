@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
-import '../../restful/client/AlunoService.dart';
+
 
 class LoginPupilPage extends StatefulWidget {
   const LoginPupilPage({super.key});
