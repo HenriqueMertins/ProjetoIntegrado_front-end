@@ -61,7 +61,9 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/register")
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
                         255, 243, 16, 0), 

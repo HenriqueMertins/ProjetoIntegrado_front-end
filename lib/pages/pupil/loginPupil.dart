@@ -1,5 +1,4 @@
-import 'dart:math';
-
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trainingcallendar/pages/pupil/myDate.dart';
+import 'package:trainingcallendar/pages/professor/register.dart';
+import 'package:trainingcallendar/pages/pupil/MyDate.dart';
 
 import '../pages/choiceLogin.dart';
-import '../pages/professor/choiceProfessor.dart';
-import '../pages/professor/loginProfessor.dart';
-import '../pages/pupil/calendar.dart';
-import '../pages/pupil/choicePupil.dart';
-import '../pages/pupil/loginPupil.dart';
+import '../pages/professor/ChoiceProfessor.dart';
+import '../pages/professor/LoginProfessor.dart';
+import '../pages/pupil/Calendar.dart';
+import '../pages/pupil/ChoicePupil.dart';
+import '../pages/pupil/LoginPupil.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,6 +35,9 @@ class RouteGenerator {
       case "/choiceProfessor":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const choiceProfessor());
+      case "/register":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const register());
       default:
         return _errorRoute();
     }

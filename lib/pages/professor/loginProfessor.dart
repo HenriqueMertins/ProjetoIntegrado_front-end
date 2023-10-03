@@ -1,6 +1,10 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
-import '../../restful/client/ProfessorService.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+// import '../../restful/client/ProfessorService.dart';
+
+import '../../restful/json/LoginRetDTO.dart';
 
 class LoginProfessorPage extends StatefulWidget {
   const LoginProfessorPage({super.key});
@@ -87,19 +91,47 @@ class _LoginPageState extends State<LoginProfessorPage> {
   }
 
   void _loginPress() async {
-    var login = ProfessorService()
+    var catchError = ProfessorService()
         .login(controlCpfField.text, controlSenhaField.text)
-        .then((value) => Navigator.of(context).pushNamed("/choiceProfessor"))
-        .catchError((onError) => showDialog(
-              context: context,
-              builder: (context) {
-                return const AlertDialog(
-                  content: Text('Não foi possível realizar autenticação'),
-                );
-              },
-            ));
+        .then((loginRetDTO) => _go(loginRetDTO))
+        .catchError((onError) => _fail());
+  }
+
+  void _go(LoginRetDTO loginDTO) async {
+    SessionManager().set("token", loginDTO.token);
+    SessionManager().set("type", "professor");
+    await Navigator.of(context).pushNamed("/choiceProfessor");
+  }
+
+  void _fail() async {
+    SessionManager().set("token", "");
+    SessionManager().set("type", "");
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          content: Text('Não foi possível realizar autenticação'),
+        );
+      },
+    );
   }
 }
+
+
+//   void _loginPress() async {
+//     var login = ProfessorService()
+//         .login(controlCpfField.text, controlSenhaField.text)
+//         .then((value) => Navigator.of(context).pushNamed("/choiceProfessor"))
+//         .catchError((onError) => showDialog(
+//               context: context,
+//               builder: (context) {
+//                 return const AlertDialog(
+//                   content: Text('Não foi possível realizar autenticação'),
+//                 );
+//               },
+//             ));
+//   }
+// }
 
 
 
