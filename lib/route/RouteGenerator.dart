@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trainingcallendar/pages/professor/register.dart';
-import 'package:trainingcallendar/pages/pupil/MyDate.dart';
+import 'package:trainingcallendar/pages/professor/Register.dart';
+import 'package:trainingcallendar/pages/pupil/myDate.dart';
 
 import '../pages/choiceLogin.dart';
-import '../pages/professor/ChoiceProfessor.dart';
-import '../pages/professor/LoginProfessor.dart';
-import '../pages/pupil/Calendar.dart';
-import '../pages/pupil/ChoicePupil.dart';
-import '../pages/pupil/LoginPupil.dart';
+import '../pages/professor/choiceProfessor.dart';
+import '../pages/professor/loginProfessor.dart';
+import '../pages/pupil/calendar.dart';
+import '../pages/pupil/choicePupil.dart';
+import '../pages/pupil/loginPupil.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
