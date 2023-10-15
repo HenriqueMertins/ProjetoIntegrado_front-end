@@ -15,8 +15,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            // settings: settings, builder: (_) => const choiceProfessor());
             settings: settings, builder: (_) => const choicePage());
+            // settings: settings, builder: (_) => const calendarPage());
       case "/loginProfessorPage":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const LoginProfessorPage());

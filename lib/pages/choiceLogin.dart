@@ -16,8 +16,18 @@ class _choicePageState extends State<choicePage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Training Calendar"),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color.fromARGB(255, 196, 188, 188), Colors.white,],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.0, 0.7], 
+              ),
+          ),
+        ),
       ),
-      backgroundColor: const Color.fromARGB(255, 196, 188, 188),
+      // backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Center(

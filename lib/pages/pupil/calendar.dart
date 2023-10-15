@@ -9,7 +9,6 @@ import 'package:table_calendar/table_calendar.dart';
 //   ));
 // }
 
-
 // ignore: camel_case_types
 class calendarPage extends StatefulWidget {
   const calendarPage({super.key});
@@ -61,10 +60,12 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
@@ -74,30 +75,19 @@ class _calendarPageState extends State<calendarPage> {
                         ),
                       ),
                       Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "5 min",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Simulador Escada",
-                          style: TextStyle(fontSize: 18),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -115,16 +105,79 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: Text(
+                          "Simulador Escada",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 100,
+                        height: 50,
+                        color: const Color.fromARGB(255, 100, 100, 100),
+                        alignment: Alignment.center,
+                        child: const Text(
+                          "5 min",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                child: Container(
+                  color: Colors.white,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           "Supino reto com halteres",
                           style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -142,16 +195,34 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           "Supino inclinado com halteres",
                           style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -169,16 +240,34 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           "Flexão",
                           style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -196,16 +285,34 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           "Triceps Polia Alta",
                           style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -223,16 +330,34 @@ class _calendarPageState extends State<calendarPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
                 child: Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                   child: Row(
                     children: [
                       const Expanded(
                         child: Text(
                           "Triceps Francês Unilateral",
                           style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Container(
@@ -249,10 +374,78 @@ class _calendarPageState extends State<calendarPage> {
                   ),
                 ),
               ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+              //   child: FloatingActionButton(
+              //     onPressed: () {
+              //       _showAddTrainingDialog(
+              //           context);
+              //     },
+              //     backgroundColor: Colors.red,
+              //     child: const Icon(
+              //       Icons.add,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  void _showAddTrainingDialog(BuildContext context) {
+    TextEditingController seriesController = TextEditingController();
+    TextEditingController pesoController = TextEditingController();
+    TextEditingController repeticoesController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Adicionar Treino"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: seriesController,
+                decoration:
+                    const InputDecoration(labelText: 'Número de Séries'),
+              ),
+              TextField(
+                controller: pesoController,
+                decoration: const InputDecoration(labelText: 'Peso (kg)'),
+              ),
+              TextField(
+                controller: repeticoesController,
+                decoration: const InputDecoration(labelText: 'Repetições'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.red, // Cor do texto
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Adicionar Treino"),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.red, // Cor do texto
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("Cancelar"),
+            ),
+          ],
+        );
+      },
     );
   }
 }
