@@ -14,8 +14,9 @@ class _choicePupilPageState extends State<choicePupil> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
-        title: const Text(""),
+        title: const Text("Training Calendar"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -31,6 +32,19 @@ class _choicePupilPageState extends State<choicePupil> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0),
+                    child: Icon(
+                      Icons.fitness_center,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 300.0,
+                    ),
+                  ),
+                ],
+              ),
               const Center(
                 child: Text(
                   "Training Calendar", 
@@ -61,7 +75,9 @@ class _choicePupilPageState extends State<choicePupil> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/MyProfessor")
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
                         255, 243, 16, 0), 

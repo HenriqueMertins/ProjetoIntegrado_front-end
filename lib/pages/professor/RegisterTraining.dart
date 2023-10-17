@@ -2,30 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // ignore: camel_case_types
-class myDate extends StatefulWidget {
-  const myDate({Key? key}) : super(key: key);
+class RegisterTraining extends StatefulWidget {
+  const RegisterTraining({Key? key}) : super(key: key);
 
   @override
-  State<myDate> createState() => _myDateState();
+  State<RegisterTraining> createState() => _RegisterTrainingState();
 }
 
 // ignore: camel_case_types
-class _myDateState extends State<myDate> {
+class _RegisterTrainingState extends State<RegisterTraining> {
   DateTime today = DateTime.now();
   TextEditingController nomeController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController telefoneController = TextEditingController();
-  String? sexo; // Adicionado para armazenar o valor selecionado no sexo.
-  TextEditingController dataNascimentoController = TextEditingController();
-  TextEditingController pesoController = TextEditingController();
+  TextEditingController cargaController = TextEditingController();
+  TextEditingController repeticaoController= TextEditingController();
+  TextEditingController serieController = TextEditingController();
 
   @override
   void dispose() {
     nomeController.dispose();
-    emailController.dispose();
-    telefoneController.dispose();
-    dataNascimentoController.dispose();
-    pesoController.dispose();
+    cargaController.dispose();
+    repeticaoController.dispose();
+    serieController.dispose();
     super.dispose();
   }
 
@@ -52,7 +49,7 @@ class _myDateState extends State<myDate> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Meus Dados',
+              'Cadastro de Treino',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -62,88 +59,49 @@ class _myDateState extends State<myDate> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    'Nome:',
+                    'Nome do Exercicio:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
                     controller: nomeController,
                     decoration: const InputDecoration(
-                      hintText: 'Digite seu nome',
+                      hintText: 'Digite o nome',
                     ),
                   ),
                   const Text(
-                    'E-mail:',
+                    'Carga Estipulada:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
-                    controller: emailController,
+                    controller: cargaController,
                     decoration: const InputDecoration(
-                      hintText: 'Digite seu e-mail',
+                      hintText: 'Digite a carga',
                     ),
                   ),
                   const Text(
-                    'Telefone:',
+                    'Repetições:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
-                    controller: telefoneController,
+                    controller: repeticaoController,
                     decoration: const InputDecoration(
-                        hintText: 'Digite seu telefone', counterText: ""),
+                        hintText: 'Digite a quantidade de repetições', counterText: ""),
                     keyboardType: TextInputType.phone,
-                    maxLength: 11,
+                    maxLength: 2,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                     ],
-                  ),
+                  ),                 
                   const Text(
-                    'Sexo:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: sexo,
-                    items: <String>[
-                      'Feminino',
-                      'Masculino',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        sexo = newValue;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Selecione o sexo',
-                    ),
-                  ),
-                  const Text(
-                    'Data de Nascimento:',
+                    'Séries:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
-                    controller: dataNascimentoController,
+                    controller: serieController,
                     decoration: const InputDecoration(
-                        hintText: 'DD/MM/AAAA', counterText: ""),
-                    keyboardType: TextInputType.datetime,
-                    maxLength: 8,
-                    // inputFormatters: [
-                    //   FilteringTextInputFormatter.digitsOnly,
-                    //   DataNascimentoInputFormatter(),
-                    // ],
-                  ),
-                  const Text(
-                    'Peso:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: pesoController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite seu peso', counterText: ""),
+                        hintText: 'Digite a quantidade de séries', counterText: ""),
                     keyboardType: TextInputType.number,
-                    maxLength: 3,
+                    maxLength: 2,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                     ],
@@ -158,7 +116,7 @@ class _myDateState extends State<myDate> {
                         backgroundColor: const Color.fromARGB(
                             255, 199, 15, 8), // Cor do texto em branco
                       ),
-                      child: const Text('Salvar'),
+                      child: const Text('Cadastrar'),
                     ),
                   ),
                 ],
@@ -171,16 +129,4 @@ class _myDateState extends State<myDate> {
   }
 }
 
-class DataNascimentoInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final text = newValue.text;
-    if (oldValue.text.length < text.length) {
-      if (text.length == 2 || text.length == 5) {
-        return newValue.copyWith(text: '$text/');
-      }
-    }
-    return newValue;
-  }
-}
+

@@ -14,8 +14,9 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
-        title: const Text(""),
+        title: const Text("Training Calendar"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -31,6 +32,19 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0),
+                    child: Icon(
+                      Icons.fitness_center,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 250.0,
+                    ),
+                  ),
+                ],
+              ),
               const Center(
                 child: Text(
                   "Training Calendar", 
@@ -45,7 +59,7 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushNamed("/calendarPupil")
+                    Navigator.of(context).pushNamed("/ListPupil")
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
@@ -62,7 +76,7 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
                 height: 60.0,
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.of(context).pushNamed("/register")
+                    Navigator.of(context).pushNamed("/RegisterPupil")
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(
@@ -75,6 +89,22 @@ class _choiceProfessorPageState extends State<choiceProfessor> {
                 ),
               ),
               const SizedBox(height: 60.0),
+              ButtonTheme(
+                height: 60.0,
+                child: ElevatedButton(
+                  onPressed: () => {
+                    Navigator.of(context).pushNamed("/RegisterTraining")
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(
+                        255, 243, 16, 0), 
+                  ),
+                  child: const Text(
+                    "Registrar Treino",
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class choicePage extends StatefulWidget {
-  const choicePage({super.key});
+class ChoicePage extends StatefulWidget {
+  const ChoicePage({super.key});
 
   @override
-  State<choicePage> createState() => _choicePageState();
+  State<ChoicePage> createState() => _ChoicePageState();
 }
 
 // ignore: camel_case_types
-class _choicePageState extends State<choicePage> {
+class _ChoicePageState extends State<ChoicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
         title: const Text("Training Calendar"),
         flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color.fromARGB(255, 196, 188, 188), Colors.white,],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0.0, 0.7], 
-              ),
-          ),
+          
         ),
       ),
-      // backgroundColor: const Color.fromARGB(255, 196, 188, 188),
+
+      backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Center(
@@ -35,6 +30,19 @@ class _choicePageState extends State<choicePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0),
+                    child: Icon(
+                      Icons.fitness_center,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 250.0,
+                    ),
+                  ),
+                ],
+              ),
               const Center(
                 child: Text(
                   "Training Calendar",
@@ -48,9 +56,8 @@ class _choicePageState extends State<choicePage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {
-                    Navigator.of(context).pushNamed("/loginProfessorPage")
-                  },
+                  onPressed: () =>
+                      {Navigator.of(context).pushNamed("/loginProfessorPage")},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 16, 0),
                   ),
@@ -64,9 +71,8 @@ class _choicePageState extends State<choicePage> {
               ButtonTheme(
                 height: 60.0,
                 child: ElevatedButton(
-                  onPressed: () => {
-                    Navigator.of(context).pushNamed("/LoginPupilPage")
-                  },
+                  onPressed: () =>
+                      {Navigator.of(context).pushNamed("/LoginPupilPage")},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 16, 0),
                   ),

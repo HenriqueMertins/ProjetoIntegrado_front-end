@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:trainingcallendar/pages/professor/Register.dart';
+import 'package:trainingcallendar/pages/professor/InfoPupil.dart';
+import 'package:trainingcallendar/pages/professor/ListPupil.dart';
+import 'package:trainingcallendar/pages/professor/RegisterPupil.dart';
+import 'package:trainingcallendar/pages/professor/RegisterTraining.dart';
+import 'package:trainingcallendar/pages/pupil/MyProfessor.dart';
 import 'package:trainingcallendar/pages/pupil/myDate.dart';
 
 import '../pages/choiceLogin.dart';
@@ -15,8 +19,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const choicePage());
-            // settings: settings, builder: (_) => const calendarPage());
+            settings: settings, builder: (_) => const ChoicePage());
+            // settings: settings, builder: (_) => const ListPupil());
       case "/loginProfessorPage":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const LoginProfessorPage());
@@ -35,9 +39,21 @@ class RouteGenerator {
       case "/choiceProfessor":
         return MaterialPageRoute(
             settings: settings, builder: (_) => const choiceProfessor());
-      case "/register":
+      case "/RegisterPupil":
         return MaterialPageRoute(
-            settings: settings, builder: (_) => const register());
+            settings: settings, builder: (_) => const RegisterPupil());
+      case "/ListPupil":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const ListPupil());
+      case "/MyProfessor":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const MyProfessor());
+      case "/RegisterTraining":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const RegisterTraining());
+      case "/InfoPupil":
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => const InfoPupil());
       default:
         return _errorRoute();
     }

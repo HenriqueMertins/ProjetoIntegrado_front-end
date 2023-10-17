@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // ignore: camel_case_types
-class register extends StatefulWidget {
-  const register({Key? key}) : super(key: key);
+class RegisterPupil extends StatefulWidget {
+  const RegisterPupil({Key? key}) : super(key: key);
 
   @override
-  State<register> createState() => _registerState();
+  State<RegisterPupil> createState() => _RegisterPupilState();
 }
 
 // ignore: camel_case_types
-class _registerState extends State<register> {
+class _RegisterPupilState extends State<RegisterPupil> {
   DateTime today = DateTime.now();
   TextEditingController nomeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -35,8 +35,9 @@ class _registerState extends State<register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
-        title: const Text("Meus Dados"),
+        title: const Text("Training Calendar"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -44,6 +45,7 @@ class _registerState extends State<register> {
           },
         ),
       ),
+      backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

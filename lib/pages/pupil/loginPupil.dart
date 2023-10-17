@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPupilPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
         title: const Text("Login Aluno"),
         leading: IconButton(
@@ -37,6 +38,19 @@ class _LoginPageState extends State<LoginPupilPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0),
+                    child: Icon(
+                      Icons.fitness_center,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 250.0,
+                    ),
+                  ),
+                ],
+              ),
               TextFormField(
                 controller: controlCpfField,
                 autofocus: true,

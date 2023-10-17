@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginProfessorPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Login"),
+        title: const Text("Training Calendar"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -38,6 +38,20 @@ class _LoginPageState extends State<LoginProfessorPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 1.0),
+                    child: Icon(
+                      Icons.fitness_center,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 250.0,
+                    ),
+                  ),
+                ],
+              ),
               TextFormField(
                 controller: controlCpfField,
                 autofocus: true,
