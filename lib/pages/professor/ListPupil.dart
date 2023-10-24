@@ -49,7 +49,8 @@ class _listPupilState extends State<ListPupil> {
               return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return Text(snapshot.data?.elementAt(index).nome ?? "");
+                    return _custom(snapshot.data!.elementAt(index));
+                    // return Text(snapshot.data?.elementAt(index).nome ?? "");
                   });
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
@@ -98,6 +99,26 @@ class _listPupilState extends State<ListPupil> {
       //     ],
       //   ),
       // ),
+    );
+  }
+
+  Widget _custom(PupilDTO pupil) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          pupil.nome,
+          style: TextStyle(
+            color: Color.fromARGB(255, 0, 0, 0),
+            fontSize: 16.0,
+          ),
+        ),
+        IconButton(
+          icon: const Icon(Icons.keyboard_arrow_down,
+              color: Color.fromARGB(255, 0, 0, 0)),
+          onPressed: () => {Navigator.of(context).pushNamed("/InfoPupil")},
+        ),
+      ],
     );
   }
 }
