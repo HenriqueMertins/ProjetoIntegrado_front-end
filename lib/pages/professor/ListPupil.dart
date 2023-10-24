@@ -20,10 +20,10 @@ class _listPupilState extends State<ListPupil> {
     _pupils();
   }
 
-  Future<List<PupilDTO>> _pupils() async {
-    List<PupilDTO> v = await ProfessorService().listPupil(1);
-    v.forEach((element) {
-      print(element);
+  Future<List<dynamic>> _pupils() async {
+    var v = await ProfessorService().listPupil(1);
+    v.forEach(( element) {
+      print("$element");
     });
     return v;
   }

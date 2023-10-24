@@ -21,14 +21,14 @@ class ProfessorService {
     }
   }
 
-  Future<List<PupilDTO>> listPupil(int personalId) async {
+  Future<List<dynamic>> listPupil(int personalId) async {
     final response = await http.get(
         Uri.parse('$SERVIDOR/alunosPersonal/$personalId'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         });
     if (response.statusCode == 200) {
-      return (jsonDecode(response.body) as List<dynamic>).cast<PupilDTO>();
+      return (jsonDecode(response.body) as List<dynamic>);
     } else {
       return List.empty();
     }
