@@ -20,11 +20,8 @@ class _listPupilState extends State<ListPupil> {
     _pupils();
   }
 
-  Future<List<dynamic>> _pupils() async {
+  Future<List<PupilDTO>> _pupils() async {
     var v = await ProfessorService().listPupil(1);
-    v.forEach(( element) {
-      print("$element");
-    });
     return v;
   }
 
@@ -45,15 +42,18 @@ class _listPupilState extends State<ListPupil> {
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
 
       body: Center(
-        child: FutureBuilder<List<dynamic>>(
+        child: FutureBuilder<List<PupilDTO>>(
           future: _pupils(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data.toString());
+              return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return Text(snapshot.data?.elementAt(index).nome ?? "");
+                  });
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-
             // By default, show a loading spinner.
             return const CircularProgressIndicator();
           },

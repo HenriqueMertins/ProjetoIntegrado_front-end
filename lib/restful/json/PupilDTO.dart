@@ -10,7 +10,7 @@ part 'PupilDTO.g.dart';
 class PupilDTO {
   final int id;
   final String nome;
-  final String cpf;
+  final int cpf;
   final String fone;
 
   PupilDTO(this.id, this.nome, this.cpf, this.fone);
