@@ -41,7 +41,7 @@ class _ListPupilState extends State<ListPupil> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
-        title: const Text("Calendário de Treinamento"),
+        title: const Text("Training Calendar"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -60,7 +60,7 @@ class _ListPupilState extends State<ListPupil> {
                   return ListTile(
                     title: Text(aluno.nome),
                     subtitle:
-                        Text('Telefone: ${aluno.cpf} , CPF: ${aluno.nome}'),
+                        Text('CPF: ${aluno.cpf} , Telefone: ${aluno.fone}'),
                   );
                 },
               ),
