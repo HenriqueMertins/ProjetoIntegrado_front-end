@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
-import 'package:trainingcallendar/restful/json/PupilDTO.dart';
+
 
 class Aluno {
   final String nome;
@@ -31,13 +31,16 @@ class _ListPupilState extends State<ListPupil> {
   Future<void> _pupils() async {
     var data = await ProfessorService().listPupil(1);
     alunos = data.map((alunoData) {
-  if (alunoData['nome'] != null && alunoData['cpf'] != null && alunoData['fone'] != null) {
-    return Aluno(alunoData['nome'], alunoData['cpf'].toString(), alunoData['fone']);
-  } else {
-    return Aluno("Nome desconhecido", "Cpf desconhecido", "Telefone desconhecido");
-  }
-}).toList();
-    setState(() {}); 
+      if (alunos['nome'] != null &&
+          alunos['cpf'] != null &&
+          alunos['fone'] != null) {
+        return Aluno(alunos['nome'], alunos['cpf'], alunos['fone']);
+      } else {
+        return Aluno(
+            "Nome desconhecido", "Cpf desconhecido", "Telefone desconhecido");
+      }
+    }).toList();
+    setState(() {});
   }
 
   @override
@@ -55,18 +58,17 @@ class _ListPupilState extends State<ListPupil> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
-
       body: Center(
         child: alunos.isEmpty
-            ? const CircularProgressIndicator() 
+            ? const CircularProgressIndicator()
             : ListView.builder(
                 itemCount: alunos.length,
                 itemBuilder: (context, index) {
                   final aluno = alunos[index];
                   return ListTile(
                     title: Text(aluno.nome),
-                    subtitle: Text('Telefone: ${aluno.cpf} , CPF: ${aluno.nome}'),
-
+                    subtitle:
+                        Text('Telefone: ${aluno.cpf} , CPF: ${aluno.nome}'),
                   );
                 },
               ),

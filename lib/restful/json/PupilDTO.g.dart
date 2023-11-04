@@ -9,7 +9,7 @@ part of 'PupilDTO.dart';
 PupilDTO _$PupilDTOFromJson(Map<String, dynamic> json) => PupilDTO(
       json['id'] as int,
       json['nome'] as String,
-      json['cpf'] as String,
+      json['cpf'] as int,
       json['fone'] as String,
     );
 

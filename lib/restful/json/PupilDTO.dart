@@ -8,10 +8,10 @@ part 'PupilDTO.g.dart';
 //      dart run build_runner build --delete-conflicting-outputs
 @JsonSerializable()
 class PupilDTO {
-  final int id;
-  final String nome;
-  final String cpf;
-  final String fone;
+  int id;
+  String nome;
+  int cpf;
+  String fone;
 
   PupilDTO(this.id, this.nome, this.cpf, this.fone);
 
