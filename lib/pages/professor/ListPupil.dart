@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 
-
 class Aluno {
   final String nome;
   final String cpf;
@@ -31,14 +30,7 @@ class _ListPupilState extends State<ListPupil> {
   Future<void> _pupils() async {
     var data = await ProfessorService().listPupil(1);
     alunos = data.map((alunoData) {
-      if (alunos['nome'] != null &&
-          alunos['cpf'] != null &&
-          alunos['fone'] != null) {
-        return Aluno(alunos['nome'], alunos['cpf'], alunos['fone']);
-      } else {
-        return Aluno(
-            "Nome desconhecido", "Cpf desconhecido", "Telefone desconhecido");
-      }
+      return Aluno(alunoData.nome, alunoData.cpf.toString(), alunoData.fone);
     }).toList();
     setState(() {});
   }
