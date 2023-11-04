@@ -4,28 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 import 'package:trainingcallendar/restful/json/PupilDTO.dart';
 
-// ignore: camel_case_types
+class Aluno {
+  final String nome;
+  final String cpf;
+  final String fone;
+
+  Aluno(this.nome, this.cpf, this.fone);
+}
+
 class ListPupil extends StatefulWidget {
   const ListPupil({Key? key}) : super(key: key);
 
   @override
-  State<ListPupil> createState() => _listPupilState();
+  State<ListPupil> createState() => _ListPupilState();
 }
 
-// ignore: camel_case_types
-class _listPupilState extends State<ListPupil> {
+class _ListPupilState extends State<ListPupil> {
+  List<Aluno> alunos = [];
+
   @override
   void initState() {
     super.initState();
     _pupils();
   }
 
-  Future<List<dynamic>> _pupils() async {
-    var v = await ProfessorService().listPupil(1);
-    v.forEach(( element) {
-      print("$element");
-    });
-    return v;
+  Future<void> _pupils() async {
+    var data = await ProfessorService().listPupil(1);
+    alunos = data.map((alunoData) {
+  if (alunoData['nome'] != null && alunoData['cpf'] != null && alunoData['fone'] != null) {
+    return Aluno(alunoData['nome'], alunoData['cpf'].toString(), alunoData['fone']);
+  } else {
+    return Aluno("Nome desconhecido", "Cpf desconhecido", "Telefone desconhecido");
+  }
+}).toList();
+    setState(() {}); 
   }
 
   @override
@@ -34,7 +46,7 @@ class _listPupilState extends State<ListPupil> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 196, 188, 188),
         centerTitle: true,
-        title: const Text("Training Calendar"),
+        title: const Text("Calendário de Treinamento"),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -45,59 +57,20 @@ class _listPupilState extends State<ListPupil> {
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
 
       body: Center(
-        child: FutureBuilder<List<dynamic>>(
-          future: _pupils(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(snapshot.data.toString());
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+        child: alunos.isEmpty
+            ? const CircularProgressIndicator() 
+            : ListView.builder(
+                itemCount: alunos.length,
+                itemBuilder: (context, index) {
+                  final aluno = alunos[index];
+                  return ListTile(
+                    title: Text(aluno.nome),
+                    subtitle: Text('Telefone: ${aluno.cpf} , CPF: ${aluno.nome}'),
 
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ),
+                  );
+                },
+              ),
       ),
-
-      // body: Center(
-      //   child: Column(
-      //     mainAxisAlignment: MainAxisAlignment.center,
-      //     crossAxisAlignment: CrossAxisAlignment.center,
-      //     children: <Widget>[
-      //       const Text(
-      //         'Lista de Alunos',
-      //         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      //       ),
-      //       const SizedBox(height: 20),
-      //       Container(
-      //         width: double.infinity,
-      //         color: const Color.fromARGB(255, 255, 255, 255),
-      //         margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      //         padding: const EdgeInsets.all(16.0),
-      //         child: Row(
-      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //           children: [
-      //             const Text(
-      //               "Nome do Aluno",
-      //               style: TextStyle(
-      //                 color: Color.fromARGB(255, 0, 0, 0),
-      //                 fontSize: 16.0,
-      //               ),
-      //             ),
-      //             IconButton(
-      //               icon: const Icon(Icons.keyboard_arrow_down,
-      //                   color: Color.fromARGB(255, 0, 0, 0)),
-      //               onPressed: () =>
-      //                   {Navigator.of(context).pushNamed("/InfoPupil")},
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       const SizedBox(height: 20),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
