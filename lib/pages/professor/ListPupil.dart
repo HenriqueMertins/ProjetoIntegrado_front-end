@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 
@@ -57,10 +56,25 @@ class _ListPupilState extends State<ListPupil> {
                 itemCount: alunos.length,
                 itemBuilder: (context, index) {
                   final aluno = alunos[index];
-                  return ListTile(
-                    title: Text(aluno.nome),
-                    subtitle:
-                        Text('CPF: ${aluno.cpf} , Telefone: ${aluno.fone}'),
+                  return Card(
+                    margin: const EdgeInsets.all(16.0),
+                    child: ListTile(
+                      leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), // Ícone de foco
+                      title: Text(
+                        aluno.nome,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('CPF: ${aluno.cpf}'),
+                          Text('Telefone: ${aluno.fone}'),
+                        ],
+                      ),
+                    ),
                   );
                 },
               ),

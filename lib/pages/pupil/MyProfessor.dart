@@ -1,6 +1,18 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:trainingcallendar/restful/client/AlunoService.dart';
+import 'package:trainingcallendar/restful/client/ProfessorService.dart';
+import 'package:trainingcallendar/restful/json/ProfessorDTO.dart';
 
-// ignore: camel_case_types
+class Personal {
+  final String nome;
+  final String cpf;
+  final String cref;
+  final String fone;
+
+  Personal(this.nome, this.cpf, this.fone, this.cref);
+}
+
 class MyProfessor extends StatefulWidget {
   const MyProfessor({Key? key}) : super(key: key);
 
@@ -8,8 +20,23 @@ class MyProfessor extends StatefulWidget {
   State<MyProfessor> createState() => _MyProfessorState();
 }
 
-// ignore: camel_case_types
 class _MyProfessorState extends State<MyProfessor> {
+  List<Personal> professores = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _personal();
+  }
+
+  Future<void> _personal() async {
+    ProfessorDTO data = await AlunoService().getProfessor(1);
+
+    var teste = Personal(data.nome, data.cpf.toString(), data.fone, data.cref.toString());
+    professores.add(teste);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,111 +53,38 @@ class _MyProfessorState extends State<MyProfessor> {
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Dados do professor atual',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 228, 227, 227),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.all(16.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Nome do Professor",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
+        child: professores.isEmpty
+            ? const CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: professores.length,
+                itemBuilder: (context, index) {
+                  final professor = professores[index];
+                  return Card(
+                    margin: const EdgeInsets.all(16.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), // Ícone de foco
+                            title: Text(
+                              professor.nome,
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text('CPF: ${professor.cpf}'),
+                          Text('Telefone: ${professor.fone}'),
+                          Text('CREF: ${professor.cref}'),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-            const SizedBox(height: 17.0),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 228, 227, 227),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.all(16.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "E-mail",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 17.0),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 228, 227, 227),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.all(16.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Fone",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 17.0),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 228, 227, 227),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.all(16.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "CREF",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 17.0),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 228, 227, 227),
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
-              padding: const EdgeInsets.all(16.0),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Instagram",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
