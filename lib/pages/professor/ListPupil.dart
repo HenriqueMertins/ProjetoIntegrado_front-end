@@ -1,15 +1,39 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 
-// ignore: camel_case_types
+class Aluno {
+  final String nome;
+  final String cpf;
+  final String fone;
+
+  Aluno(this.nome, this.cpf, this.fone);
+}
+
 class ListPupil extends StatefulWidget {
   const ListPupil({Key? key}) : super(key: key);
 
   @override
-  State<ListPupil> createState() => _listPupilState();
+  State<ListPupil> createState() => _ListPupilState();
 }
 
-// ignore: camel_case_types
-class _listPupilState extends State<ListPupil> {
+class _ListPupilState extends State<ListPupil> {
+  List<Aluno> alunos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _pupils();
+  }
+
+  Future<void> _pupils() async {
+    var data = await ProfessorService().listPupil(1);
+    alunos = data.map((alunoData) {
+      return Aluno(alunoData.nome, alunoData.cpf.toString(), alunoData.fone);
+    }).toList();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,94 +50,34 @@ class _listPupilState extends State<ListPupil> {
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Lista de Alunos',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 255, 255, 255), 
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 16.0), 
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Nome do Aluno",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0), 
-                      fontSize: 16.0,
+        child: alunos.isEmpty
+            ? const CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: alunos.length,
+                itemBuilder: (context, index) {
+                  final aluno = alunos[index];
+                  return Card(
+                    margin: const EdgeInsets.all(16.0),
+                    child: ListTile(
+                      leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), // Ícone de foco
+                      title: Text(
+                        aluno.nome,
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('CPF: ${aluno.cpf}'),
+                          Text('Telefone: ${aluno.fone}'),
+                        ],
+                      ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.keyboard_arrow_down,
-                        color: Color.fromARGB(255, 0, 0, 0)), 
-                    onPressed: () =>
-                      {Navigator.of(context).pushNamed("/InfoPupil")},
-                  ),
-                ],
+                  );
+                },
               ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 255, 255, 255), 
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 16.0), 
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Nome do Aluno",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0), 
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.keyboard_arrow_down,
-                        color: Color.fromARGB(255, 0, 0, 0)), 
-                    onPressed: () =>
-                      {Navigator.of(context).pushNamed("/InfoPupil")},
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(255, 255, 255, 255), 
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 16.0), 
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Nome do Aluno",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0), 
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.keyboard_arrow_down,
-                        color: Color.fromARGB(255, 0, 0, 0)), 
-                    onPressed: () =>
-                      {Navigator.of(context).pushNamed("/InfoPupil")},
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
