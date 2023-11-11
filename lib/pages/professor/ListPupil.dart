@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class Aluno {
   final String nome;
@@ -27,7 +28,8 @@ class _ListPupilState extends State<ListPupil> {
   }
 
   Future<void> _pupils() async {
-    var data = await ProfessorService().listPupil(1);
+    int idLogin = await SessionManager().get("idLogin");
+    var data = await ProfessorService().listPupil(idLogin);
     alunos = data.map((alunoData) {
       return Aluno(alunoData.nome, alunoData.cpf.toString(), alunoData.fone);
     }).toList();

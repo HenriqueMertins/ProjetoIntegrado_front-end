@@ -9,6 +9,7 @@ part 'LoginRetDTO.g.dart';
 @JsonSerializable()
 class LoginRetDTO {
   String msg;
+  int idLogin=0;
   String token;
 
   LoginRetDTO(this.msg, this.token);

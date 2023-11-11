@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginProfessorPage> {
   void _go(LoginRetDTO loginDTO) async {
     SessionManager().set("token", loginDTO.token);
     SessionManager().set("type", "professor");
+    SessionManager().set("idLogin",loginDTO.idLogin);
     await Navigator.of(context).pushNamed("/choiceProfessor");
   }
 

@@ -9,10 +9,11 @@ part of 'LoginRetDTO.dart';
 LoginRetDTO _$LoginRetDTOFromJson(Map<String, dynamic> json) => LoginRetDTO(
       json['msg'] as String,
       json['token'] as String,
-    );
+    )..idLogin = json['idLogin'] as int;
 
 Map<String, dynamic> _$LoginRetDTOToJson(LoginRetDTO instance) =>
     <String, dynamic>{
       'msg': instance.msg,
+      'idLogin': instance.idLogin,
       'token': instance.token,
     };
