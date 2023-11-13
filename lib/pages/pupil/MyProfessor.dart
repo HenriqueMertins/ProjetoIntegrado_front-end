@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 import 'package:trainingcallendar/restful/json/ProfessorDTO.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class Personal {
   final String nome;
@@ -30,7 +31,8 @@ class _MyProfessorState extends State<MyProfessor> {
   }
 
   Future<void> _personal() async {
-    ProfessorDTO data = await AlunoService().getProfessor(1);
+    int idLogin = await SessionManager().get("idLogin");
+    ProfessorDTO data = await AlunoService().getProfessor(idLogin);
 
     var teste = Personal(data.nome, data.cpf.toString(), data.fone, data.cref.toString());
     professores.add(teste);

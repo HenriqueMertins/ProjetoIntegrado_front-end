@@ -113,6 +113,7 @@ class _LoginPageState extends State<LoginPupilPage> {
   void _go(LoginRetDTO loginDTO) async {
     SessionManager().set("token", loginDTO.token);
     SessionManager().set("type", "pupil");
+    SessionManager().set("idLogin",loginDTO.idLogin);
     await Navigator.of(context).pushNamed("/firstScenePupil");
   }
 
