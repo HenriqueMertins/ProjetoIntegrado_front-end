@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
 
 // ignore: camel_case_types
 class RegisterTraining extends StatefulWidget {
@@ -116,7 +118,16 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                         backgroundColor: const Color.fromARGB(
                             255, 199, 15, 8), // Cor do texto em branco
                       ),
-                      child: const Text('Cadastrar'),
+                      child: ButtonTheme(
+                height: 60.0,
+                child: ElevatedButton(
+                  onPressed: _addTreino,
+                  child: const Text(
+                    "Entrar",
+                    style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),
+                  ),
+                ),
+              )
                     ),
                   ),
                 ],
@@ -126,6 +137,19 @@ class _RegisterTrainingState extends State<RegisterTraining> {
         ),
       ),
     );
+    
+  }
+  
+    void _addTreino() async {
+      int personalId = await SessionManager().get("idLogin");
+      String nome = nomeController.text;
+      int carga = cargaController.text;
+      TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep)
+      
+    var catchError = ProfessorService()
+        .login(nomeController.text)
+        .then((loginRetDTO) => _go(loginRetDTO))
+        .catchError((onError) => _fail());
   }
 }
 

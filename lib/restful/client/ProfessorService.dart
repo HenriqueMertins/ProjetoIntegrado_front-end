@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:trainingcallendar/restful/json/LoginDTO.dart';
 import 'package:trainingcallendar/restful/json/LoginRetDTO.dart';
 import 'package:trainingcallendar/restful/json/PupilDTO.dart';
+import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
 import '../../constants/WebService.dart';
 
 class ProfessorService {
@@ -37,5 +38,14 @@ class ProfessorService {
     } else {
       return ret;
     }
+  }
+
+  Future<bool> addTreino(TreinoDTO treinoDTO) async {
+    final response = await http.post(Uri.parse('$SERVIDOR/treinos'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(treinoDTO.toJson()));
+        return (response.statusCode == 200);
   }
 }
