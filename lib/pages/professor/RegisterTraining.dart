@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
+
 
 // ignore: camel_case_types
 class RegisterTraining extends StatefulWidget {
@@ -16,7 +18,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
   DateTime today = DateTime.now();
   TextEditingController nomeController = TextEditingController();
   TextEditingController cargaController = TextEditingController();
-  TextEditingController repeticaoController= TextEditingController();
+  TextEditingController repeticaoController = TextEditingController();
   TextEditingController serieController = TextEditingController();
 
   @override
@@ -87,13 +89,14 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                   TextFormField(
                     controller: repeticaoController,
                     decoration: const InputDecoration(
-                        hintText: 'Digite a quantidade de repetições', counterText: ""),
+                        hintText: 'Digite a quantidade de repetições',
+                        counterText: ""),
                     keyboardType: TextInputType.phone,
                     maxLength: 2,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
                     ],
-                  ),                 
+                  ),
                   const Text(
                     'Séries:',
                     style: TextStyle(fontSize: 18),
@@ -101,7 +104,8 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                   TextFormField(
                     controller: serieController,
                     decoration: const InputDecoration(
-                        hintText: 'Digite a quantidade de séries', counterText: ""),
+                        hintText: 'Digite a quantidade de séries',
+                        counterText: ""),
                     keyboardType: TextInputType.number,
                     maxLength: 2,
                     inputFormatters: <TextInputFormatter>[
@@ -112,23 +116,23 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
-                      onPressed: _salvarInformacoes,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(
-                            255, 199, 15, 8), // Cor do texto em branco
-                      ),
-                      child: ButtonTheme(
-                height: 60.0,
-                child: ElevatedButton(
-                  onPressed: _addTreino,
-                  child: const Text(
-                    "Entrar",
-                    style: TextStyle(color: Color.fromARGB(255, 199, 15, 8)),
-                  ),
-                ),
-              )
-                    ),
+                        onPressed: _salvarInformacoes,
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color.fromARGB(
+                              255, 199, 15, 8), // Cor do texto em branco
+                        ),
+                        child: ButtonTheme(
+                          height: 60.0,
+                          child: ElevatedButton(
+                            onPressed: _addTreino,
+                            child: const Text(
+                              "Registrar",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 199, 15, 8)),
+                            ),
+                          ),
+                        )),
                   ),
                 ],
               ),
@@ -137,20 +141,38 @@ class _RegisterTrainingState extends State<RegisterTraining> {
         ),
       ),
     );
-    
   }
-  
-    void _addTreino() async {
-      int personalId = await SessionManager().get("idLogin");
-      String nome = nomeController.text;
-      int carga = cargaController.text;
-      TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep)
-      
+
+  void _addTreino() async {
+    int personalId = await SessionManager().get("idLogin");
+    String nome = nomeController.text;
+    int carga = int.parse(cargaController.text);
+    int serie = int.parse(serieController.text);
+    int rep = int.parse(repeticaoController.text);
+
+    TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep);
+
     var catchError = ProfessorService()
-        .login(nomeController.text)
-        .then((loginRetDTO) => _go(loginRetDTO))
+        .addTreino(treinoDTO)
+        .then((ret) => _msg(ret))
         .catchError((onError) => _fail());
   }
+
+  _msg(bool ret) async {
+    if (ret) {
+      return const AlertDialog(
+        content: Text('Treino registrado com sucesso'),
+      );
+    } else {
+      return const AlertDialog(
+        content: Text('Não foi possível registrar o treino'),
+      );
+    }
+  }
+
+  _fail() async {
+    return const AlertDialog(
+      content: Text('Não foi possível registrar o treino'),
+    );
+  }
 }
-
-
