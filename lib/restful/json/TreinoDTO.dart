@@ -9,14 +9,15 @@ part 'TreinoDTO.g.dart';
 @JsonSerializable()
 class TreinoDTO {
   // int id;
-  int personalId;
+  int personal_id;
   String nome;
   int carga;
   int serie;
   int rep;
+  int dia;
 
   // TreinoDTO(this.id, this.personalId, this.nome, this.carga, this.serie, this.rep);
-  TreinoDTO(this.personalId, this.nome, this.carga, this.serie, this.rep);
+  TreinoDTO(this.personal_id, this.nome, this.carga, this.serie, this.rep, this.dia);
 
 
   factory TreinoDTO.fromJson(Map<String, dynamic> json) =>

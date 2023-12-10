@@ -7,17 +7,19 @@ part of 'TreinoDTO.dart';
 // **************************************************************************
 
 TreinoDTO _$TreinoDTOFromJson(Map<String, dynamic> json) => TreinoDTO(
-      json['personalId'] as int,
+      json['personal_id'] as int,
       json['nome'] as String,
       json['carga'] as int,
       json['serie'] as int,
       json['rep'] as int,
+      json['dia'] as int,
     );
 
 Map<String, dynamic> _$TreinoDTOToJson(TreinoDTO instance) => <String, dynamic>{
-      'personalId': instance.personalId,
+      'personal_id': instance.personal_id,
       'nome': instance.nome,
       'carga': instance.carga,
       'serie': instance.serie,
       'rep': instance.rep,
+      'dia': instance.dia,
     };

@@ -4,7 +4,6 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
 
-
 // ignore: camel_case_types
 class RegisterTraining extends StatefulWidget {
   const RegisterTraining({Key? key}) : super(key: key);
@@ -20,6 +19,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
   TextEditingController cargaController = TextEditingController();
   TextEditingController repeticaoController = TextEditingController();
   TextEditingController serieController = TextEditingController();
+  int? selectedDay;
 
   @override
   void dispose() {
@@ -27,8 +27,19 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     cargaController.dispose();
     repeticaoController.dispose();
     serieController.dispose();
+    // diaController.dispose();
     super.dispose();
   }
+
+  List<String> daysOfWeek = [
+    'Domingo',
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira',
+    'Sábado'
+  ];
 
   void _salvarInformacoes() {}
 
@@ -79,8 +90,12 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                   TextFormField(
                     controller: cargaController,
                     decoration: const InputDecoration(
-                      hintText: 'Digite a carga',
-                    ),
+                        hintText: 'Digite a carga', counterText: ""),
+                    keyboardType: TextInputType.number,
+                    maxLength: 4,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                   const Text(
                     'Repetições:',
@@ -91,7 +106,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                     decoration: const InputDecoration(
                         hintText: 'Digite a quantidade de repetições',
                         counterText: ""),
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.number,
                     maxLength: 2,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.digitsOnly,
@@ -112,27 +127,40 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                   ),
+                  const Text(
+                    'Dia:',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  DropdownButtonFormField<int>(
+                    value: selectedDay,
+                    onChanged: (int? newValue) {
+                      setState(() {
+                        selectedDay = newValue;
+                      });
+                    },
+                    items: List.generate(7, (index) {
+                      return DropdownMenuItem<int>(
+                        value: index,
+                        child: Text(daysOfWeek[index]),
+                      );
+                    }),
+                    decoration: const InputDecoration(
+                      hintText: 'Escolha o dia',
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
-                        onPressed: _salvarInformacoes,
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: const Color.fromARGB(
-                              255, 199, 15, 8), // Cor do texto em branco
-                        ),
-                        child: ButtonTheme(
-                          height: 60.0,
-                          child: ElevatedButton(
-                            onPressed: _addTreino,
-                            child: const Text(
-                              "Registrar",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 199, 15, 8)),
-                            ),
-                          ),
-                        )),
+                      onPressed: _addTreino,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(
+                            255, 199, 15, 8), 
+                      ),
+                      child: const Text(
+                        "Registrar", 
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -149,13 +177,23 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     int carga = int.parse(cargaController.text);
     int serie = int.parse(serieController.text);
     int rep = int.parse(repeticaoController.text);
+    int dia = selectedDay ?? 0;
 
-    TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep);
+    TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep, dia);
 
     var catchError = ProfessorService()
         .addTreino(treinoDTO)
         .then((ret) => _msg(ret))
         .catchError((onError) => _fail());
+        _clearFields();
+  }
+
+  void _clearFields() {
+    nomeController.clear();
+    cargaController.clear();
+    repeticaoController.clear();
+    serieController.clear();
+    selectedDay = null;
   }
 
   _msg(bool ret) async {

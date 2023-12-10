@@ -41,6 +41,7 @@ class ProfessorService {
   }
 
   Future<bool> addTreino(TreinoDTO treinoDTO) async {
+    print(jsonEncode(treinoDTO.toJson()));
     final response = await http.post(Uri.parse('$SERVIDOR/treinos'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
