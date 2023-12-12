@@ -58,115 +58,109 @@ class _RegisterTrainingState extends State<RegisterTraining> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Cadastro de Treino',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Nome do Exercicio:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: nomeController,
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o nome',
-                    ),
-                  ),
-                  const Text(
-                    'Carga Estipulada:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: cargaController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite a carga', counterText: ""),
-                    keyboardType: TextInputType.number,
-                    maxLength: 4,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                  const Text(
-                    'Repetições:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: repeticaoController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite a quantidade de repetições',
-                        counterText: ""),
-                    keyboardType: TextInputType.number,
-                    maxLength: 2,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                  const Text(
-                    'Séries:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: serieController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite a quantidade de séries',
-                        counterText: ""),
-                    keyboardType: TextInputType.number,
-                    maxLength: 2,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                  const Text(
-                    'Dia:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  DropdownButtonFormField<int>(
-                    value: selectedDay,
-                    onChanged: (int? newValue) {
-                      setState(() {
-                        selectedDay = newValue;
-                      });
-                    },
-                    items: List.generate(7, (index) {
-                      return DropdownMenuItem<int>(
-                        value: index,
-                        child: Text(daysOfWeek[index]),
-                      );
-                    }),
-                    decoration: const InputDecoration(
-                      hintText: 'Escolha o dia',
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: _addTreino,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(255, 199, 15, 8),
-                      ),
-                      child: const Text(
-                        "Registrar",
-                      ),
-                    ),
-                  ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          const Text(
+            'Cadastro de Treino',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Nome do Exercicio:',
+                style: TextStyle(fontSize: 18),
+              ),
+              TextFormField(
+                controller: nomeController,
+                decoration: const InputDecoration(
+                  hintText: 'Digite o nome',
+                ),
+              ),
+              const Text(
+                'Carga Estipulada:',
+                style: TextStyle(fontSize: 18),
+              ),
+              TextFormField(
+                controller: cargaController,
+                decoration: const InputDecoration(
+                    hintText: 'Digite a carga', counterText: ""),
+                keyboardType: TextInputType.number,
+                maxLength: 4,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
                 ],
               ),
-            ),
-          ],
-        ),
+              const Text(
+                'Repetições:',
+                style: TextStyle(fontSize: 18),
+              ),
+              TextFormField(
+                controller: repeticaoController,
+                decoration: const InputDecoration(
+                    hintText: 'Digite a quantidade de repetições',
+                    counterText: ""),
+                keyboardType: TextInputType.number,
+                maxLength: 2,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+              const Text(
+                'Séries:',
+                style: TextStyle(fontSize: 18),
+              ),
+              TextFormField(
+                controller: serieController,
+                decoration: const InputDecoration(
+                    hintText: 'Digite a quantidade de séries',
+                    counterText: ""),
+                keyboardType: TextInputType.number,
+                maxLength: 2,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+              ),
+              const Text(
+                'Dia:',
+                style: TextStyle(fontSize: 18),
+              ),
+              DropdownButtonFormField<int>(
+                value: selectedDay,
+                onChanged: (int? newValue) {
+                  setState(() {
+                    selectedDay = newValue;
+                  });
+                },
+                items: List.generate(7, (index) {
+                  return DropdownMenuItem<int>(
+                    value: index,
+                    child: Text(daysOfWeek[index]),
+                  );
+                }),
+                decoration: const InputDecoration(
+                  hintText: 'Escolha o dia',
+                ),
+              ),
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: _addTreino,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 199, 15, 8),
+                  ),
+                  child: const Text(
+                    "Registrar",
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

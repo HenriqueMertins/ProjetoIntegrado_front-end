@@ -46,126 +46,119 @@ class _RegisterPupilState extends State<RegisterPupil> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 196, 188, 188),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Cadastro de Aluno',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          const Text(
+            'Cadastro de Aluno',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  'Nome:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                TextFormField(
+                  controller: nomeController,
+                  decoration: const InputDecoration(
+                    hintText: 'Digite o nome',
+                  ),
+                ),
+                const Text(
+                  'E-mail:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                TextFormField(
+                  controller: emailController,
+                  decoration: const InputDecoration(
+                    hintText: 'Digite o e-mail',
+                  ),
+                ),
+                const Text(
+                  'Telefone:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                TextFormField(
+                  controller: telefoneController,
+                  decoration: const InputDecoration(
+                      hintText: 'Digite o telefone', counterText: ""),
+                  keyboardType: TextInputType.phone,
+                  maxLength: 11,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                ),
+                const Text(
+                  'Sexo:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                DropdownButtonFormField<String>(
+                  value: sexo,
+                  items: <String>[
+                    'Feminino',
+                    'Masculino',
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      sexo = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    hintText: 'Selecione o sexo',
+                  ),
+                ),
+                const Text(
+                  'Data de Nascimento:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                TextFormField(
+                  controller: dataNascimentoController,
+                  decoration: const InputDecoration(
+                      hintText: 'DD/MM/AAAA', counterText: ""),
+                  keyboardType: TextInputType.datetime,
+                  maxLength: 8,
+                ),
+                const Text(
+                  'Peso:',
+                  style: TextStyle(fontSize: 18),
+                ),
+                TextFormField(
+                  controller: pesoController,
+                  decoration: const InputDecoration(
+                      hintText: 'Digite o peso', counterText: ""),
+                  keyboardType: TextInputType.number,
+                  maxLength: 3,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: _salvarInformacoes,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(
+                          255, 199, 15, 8), // Cor do texto em branco
+                    ),
+                    child: const Text('Cadastrar'),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    'Nome:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: nomeController,
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o nome',
-                    ),
-                  ),
-                  const Text(
-                    'E-mail:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      hintText: 'Digite o e-mail',
-                    ),
-                  ),
-                  const Text(
-                    'Telefone:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: telefoneController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite o telefone', counterText: ""),
-                    keyboardType: TextInputType.phone,
-                    maxLength: 11,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                  const Text(
-                    'Sexo:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  DropdownButtonFormField<String>(
-                    value: sexo,
-                    items: <String>[
-                      'Feminino',
-                      'Masculino',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        sexo = newValue;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Selecione o sexo',
-                    ),
-                  ),
-                  const Text(
-                    'Data de Nascimento:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: dataNascimentoController,
-                    decoration: const InputDecoration(
-                        hintText: 'DD/MM/AAAA', counterText: ""),
-                    keyboardType: TextInputType.datetime,
-                    maxLength: 8,
-                    // inputFormatters: [
-                    //   FilteringTextInputFormatter.digitsOnly,
-                    //   DataNascimentoInputFormatter(),
-                    // ],
-                  ),
-                  const Text(
-                    'Peso:',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  TextFormField(
-                    controller: pesoController,
-                    decoration: const InputDecoration(
-                        hintText: 'Digite o peso', counterText: ""),
-                    keyboardType: TextInputType.number,
-                    maxLength: 3,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: _salvarInformacoes,
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: const Color.fromARGB(
-                            255, 199, 15, 8), // Cor do texto em branco
-                      ),
-                      child: const Text('Cadastrar'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
