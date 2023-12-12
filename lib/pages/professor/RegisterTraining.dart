@@ -154,11 +154,11 @@ class _RegisterTrainingState extends State<RegisterTraining> {
                     child: ElevatedButton(
                       onPressed: _addTreino,
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white, backgroundColor: const Color.fromARGB(
-                            255, 199, 15, 8), 
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromARGB(255, 199, 15, 8),
                       ),
                       child: const Text(
-                        "Registrar", 
+                        "Registrar",
                       ),
                     ),
                   ),
@@ -177,6 +177,12 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     int carga = int.parse(cargaController.text);
     int serie = int.parse(serieController.text);
     int rep = int.parse(repeticaoController.text);
+
+    if (selectedDay == null) {
+    _showErrorDialog('Por favor, escolha o dia.');
+    return;
+  }
+
     int dia = selectedDay ?? 0;
 
     TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep, dia);
@@ -185,8 +191,27 @@ class _RegisterTrainingState extends State<RegisterTraining> {
         .addTreino(treinoDTO)
         .then((ret) => _msg(ret))
         .catchError((onError) => _fail());
-        _clearFields();
+    _clearFields();
   }
+
+  void _showErrorDialog(String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Text(errorMessage),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+}
 
   void _clearFields() {
     nomeController.clear();
@@ -196,16 +221,30 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     selectedDay = null;
   }
 
-  _msg(bool ret) async {
+  void _msg(bool ret) {
+    String message;
     if (ret) {
-      return const AlertDialog(
-        content: Text('Treino registrado com sucesso'),
-      );
+      message = 'Treino registrado com sucesso';
     } else {
-      return const AlertDialog(
-        content: Text('Não foi possível registrar o treino'),
-      );
+      message = 'Não foi possível registrar o treino';
     }
+
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   _fail() async {
