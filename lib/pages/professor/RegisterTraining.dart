@@ -100,7 +100,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
               TextFormField(
                 controller: repeticaoController,
                 decoration: const InputDecoration(
-                    hintText: 'Digite a quantidade de repetições',
+                    hintText: 'Digite o número de repetições',
                     counterText: ""),
                 keyboardType: TextInputType.number,
                 maxLength: 2,
@@ -115,8 +115,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
               TextFormField(
                 controller: serieController,
                 decoration: const InputDecoration(
-                    hintText: 'Digite a quantidade de séries',
-                    counterText: ""),
+                    hintText: 'Digite a quantidade de séries', counterText: ""),
                 keyboardType: TextInputType.number,
                 maxLength: 2,
                 inputFormatters: <TextInputFormatter>[
@@ -165,47 +164,75 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     );
   }
 
-  void _addTreino() async {
-    int personalId = await SessionManager().get("idLogin");
-    String nome = nomeController.text;
-    int carga = int.parse(cargaController.text);
-    int serie = int.parse(serieController.text);
-    int rep = int.parse(repeticaoController.text);
-
+  bool _valida() {
+    if (nomeController.text == "") {
+      _showErrorDialog('Por favor, preencha o nome.');
+      return false;
+    }
+    try {
+      int.parse(cargaController.text);
+    } catch (ex) {
+      _showErrorDialog('Por vafor preencha a carga.');
+      return false;
+    }
+    try {
+      int.parse(repeticaoController.text);
+    } catch (ex) {
+      _showErrorDialog('Por vafor preencha o número de repetições.');
+      return false;
+    }
+     try {
+      int.parse(serieController.text);
+    } catch (ex) {
+      _showErrorDialog('Por vafor preencha o número de séries.');
+      return false;
+    }
     if (selectedDay == null) {
-    _showErrorDialog('Por favor, escolha o dia.');
-    return;
+      _showErrorDialog('Por favor, escolha o dia.');
+      return false;
+    }
+
+    return true;
   }
 
-    int dia = selectedDay ?? 0;
+  void _addTreino() async {
+    if (_valida()) {
+      int personalId = await SessionManager().get("idLogin");
+      String nome = nomeController.text;
+      int carga = int.parse(cargaController.text);
+      int serie = int.parse(serieController.text);
+      int rep = int.parse(repeticaoController.text);
 
-    TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep, dia);
+      int dia = selectedDay ?? 0;
 
-    var catchError = ProfessorService()
-        .addTreino(treinoDTO)
-        .then((ret) => _msg(ret))
-        .catchError((onError) => _fail());
-    _clearFields();
+      TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep, dia);
+
+      var catchError = ProfessorService()
+          .addTreino(treinoDTO)
+          .then((ret) => _msg(ret))
+          .catchError((onError) => _fail());
+      _clearFields();
+    }
   }
 
   void _showErrorDialog(String errorMessage) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: Text(errorMessage),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('OK'),
-          ),
-        ],
-      );
-    },
-  );
-}
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(errorMessage),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void _clearFields() {
     nomeController.clear();
@@ -216,6 +243,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
   }
 
   void _msg(bool ret) {
+    // print(_msg("mensagem"));
     String message;
     if (ret) {
       message = 'Treino registrado com sucesso';
@@ -224,7 +252,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     }
 
     showDialog(
-      context: context, 
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           content: Text(message),
@@ -233,7 +261,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
