@@ -205,7 +205,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
 
       int dia = selectedDay ?? 0;
 
-      TreinoDTO treinoDTO = TreinoDTO(personalId, nome, carga, serie, rep, dia);
+      TreinoDTO treinoDTO = TreinoDTO(personalId, 0, nome, carga, serie, rep, dia);
 
       var catchError = ProfessorService()
           .addTreino(treinoDTO)

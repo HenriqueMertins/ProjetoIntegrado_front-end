@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
-// import 'package:trainingcallendar/main.dart';
+import 'package:trainingcallendar/restful/client/TreinoService.dart';
 
-// void main(){
-//   runApp(const MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     home: MyApp(),
-//   ));
-// }
+class Treino {
+  final int id;
+  final String nome;
+  final int carga;
+  final int serie;
+  final int rep;
+  final int dia;
 
-// ignore: camel_case_types
+  Treino(this.id, this.nome, this.carga, this.serie, this.rep, this.dia);
+}
+
 class calendarPage extends StatefulWidget {
   const calendarPage({super.key});
 
@@ -19,12 +23,28 @@ class calendarPage extends StatefulWidget {
 
 // ignore: camel_case_types
 class _calendarPageState extends State<calendarPage> {
+  List<Treino> treinos = [];
   DateTime today = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _treinos();
+  }
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
     });
+  }
+
+  Future<void> _treinos() async {
+    int idLogin = await SessionManager().get("idLogin");
+    var data = await TreinoService().listTreino(idLogin, 2);
+    treinos = data.map((treinoData) {
+      return Treino(treinoData.id, treinoData.nome, treinoData.carga, treinoData.serie, treinoData.rep, treinoData.dia);
+    }).toList();
+    setState(() {});
   }
 
   @override

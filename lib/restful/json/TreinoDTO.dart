@@ -10,6 +10,7 @@ part 'TreinoDTO.g.dart';
 class TreinoDTO {
   // int id;
   int personal_id;
+  int id;
   String nome;
   int carga;
   int serie;
@@ -17,7 +18,7 @@ class TreinoDTO {
   int dia;
 
   // TreinoDTO(this.id, this.personalId, this.nome, this.carga, this.serie, this.rep);
-  TreinoDTO(this.personal_id, this.nome, this.carga, this.serie, this.rep, this.dia);
+  TreinoDTO(this.personal_id, this.id, this.nome, this.carga, this.serie, this.rep, this.dia);
 
 
   factory TreinoDTO.fromJson(Map<String, dynamic> json) =>
