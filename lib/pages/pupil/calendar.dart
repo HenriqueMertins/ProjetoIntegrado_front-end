@@ -21,31 +21,38 @@ class calendarPage extends StatefulWidget {
   State<calendarPage> createState() => _calendarPageState();
 }
 
-// ignore: camel_case_types
 class _calendarPageState extends State<calendarPage> {
   List<Treino> treinos = [];
   DateTime today = DateTime.now();
 
   @override
-  void initState() {
-    super.initState();
-    _treinos();
-  }
+void initState() {
+  super.initState();
+}
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
-    setState(() {
-      today = day;
-    });
-  }
+  print("Selected day: $day");
+  print(day.weekday);
+  _treinos(day);
+  setState(() {
+    today = day;
+  });
+}
 
-  Future<void> _treinos() async {
-    int idLogin = await SessionManager().get("idLogin");
-    var data = await TreinoService().listTreino(idLogin, 2);
-    treinos = data.map((treinoData) {
-      return Treino(treinoData.id, treinoData.nome, treinoData.carga, treinoData.serie, treinoData.rep, treinoData.dia);
-    }).toList();
-    setState(() {});
-  }
+  Future<void> _treinos(DateTime selectedDay) async {
+  int idLogin = await SessionManager().get("idLogin");
+  var data = await TreinoService().listTreino(idLogin, selectedDay.weekday);
+  treinos = data.map((treinoData) {
+    return Treino(
+        treinoData.id,
+        treinoData.nome,
+        treinoData.carga,
+        treinoData.serie,
+        treinoData.rep,
+        treinoData.dia);
+  }).toList();
+  setState(() {});
+}
 
   @override
   Widget build(BuildContext context) {
@@ -54,362 +61,75 @@ class _calendarPageState extends State<calendarPage> {
       appBar: AppBar(
         title: const Text("Training Calendar"),
         backgroundColor: const Color.fromARGB(255, 196, 188, 188),
-        // leading: BackButton(
-        //   onPressed: () => Navigator.of(context).pop(),
-        // ),
       ),
-      body: ListView(
+      body: Column(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TableCalendar(
-                  locale: "en_US",
-                  rowHeight: 43,
-                  headerStyle: const HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                  ),
-                  availableGestures: AvailableGestures.all,
-                  selectedDayPredicate: (day) => isSameDay(day, today),
-                  focusedDay: today,
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  onDaySelected: _onDaySelected,
-                ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: TableCalendar(
+              locale: "en_US",
+              rowHeight: 43,
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Pular Corda",
-                          style: TextStyle(fontSize: 18),
-                        ),
+              availableGestures: AvailableGestures.all,
+              selectedDayPredicate: (day) => isSameDay(day, today),
+              focusedDay: today,
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(2030, 3, 14),
+              onDaySelected: _onDaySelected,
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: treinos.length,
+              itemBuilder: (context, index) {
+                final treino = treinos[index];
+
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                  child: Card(
+                    elevation: 2,
+                    child: ListTile(
+                      title: Text(
+                        treino.nome,
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Carga: ${treino.carga}",
+                            style: const TextStyle(fontSize: 16),
                           ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
+                          Text(
+                            "Série: ${treino.serie}",
+                            style: const TextStyle(fontSize: 16),
                           ),
+                          Text(
+                            "Rep: ${treino.rep}",
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      trailing: ElevatedButton(
+                        onPressed: () {
+                          _showAddTrainingDialog(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 199, 15, 8),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white,
                         ),
                       ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "5 min",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Simulador Escada",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "5 min",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Supino reto com halteres",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "12x de 35kg  4 series",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Supino inclinado com halteres",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "12x de 27kg  4 series",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Flexão",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "12 rep",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Triceps Polia Alta",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "10x de 30kg  4 series",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          "Triceps Francês Unilateral",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 20),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _showAddTrainingDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(255, 199, 15, 8)
-                          ),
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 100,
-                        height: 50,
-                        color: const Color.fromARGB(255, 100, 100, 100),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          "10x de 22kg  4 series",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-              //   child: FloatingActionButton(
-              //     onPressed: () {
-              //       _showAddTrainingDialog(
-              //           context);
-              //     },
-              //     backgroundColor: Colors.red,
-              //     child: const Icon(
-              //       Icons.add,
-              //       color: Colors.white,
-              //     ),
-              //   ),
-              // ),
-            ],
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -432,7 +152,7 @@ class _calendarPageState extends State<calendarPage> {
               TextField(
                 controller: seriesController,
                 decoration:
-                    const InputDecoration(labelText: 'Número de Séries'),
+                const InputDecoration(labelText: 'Número de Séries'),
               ),
               TextField(
                 controller: pesoController,
