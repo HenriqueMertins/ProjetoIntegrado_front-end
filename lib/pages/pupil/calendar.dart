@@ -14,6 +14,7 @@ class Treino {
   Treino(this.id, this.nome, this.carga, this.serie, this.rep, this.dia);
 }
 
+// ignore: camel_case_types
 class calendarPage extends StatefulWidget {
   const calendarPage({super.key});
 
@@ -21,6 +22,7 @@ class calendarPage extends StatefulWidget {
   State<calendarPage> createState() => _calendarPageState();
 }
 
+// ignore: camel_case_types
 class _calendarPageState extends State<calendarPage> {
   List<Treino> treinos = [];
   DateTime today = DateTime.now();
@@ -167,7 +169,7 @@ void initState() {
           actions: [
             TextButton(
               style: TextButton.styleFrom(
-                foregroundColor: Colors.red, // Cor do texto
+                foregroundColor: Colors.red, 
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -176,7 +178,7 @@ void initState() {
             ),
             TextButton(
               style: TextButton.styleFrom(
-                foregroundColor: Colors.red, // Cor do texto
+                foregroundColor: Colors.red, 
               ),
               onPressed: () {
                 Navigator.of(context).pop();

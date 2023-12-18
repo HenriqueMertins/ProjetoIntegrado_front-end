@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:trainingcallendar/constants/WebService.dart';
+import 'package:trainingcallendar/restful/json/ResultadoTreinoDTO.dart';
 import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
+
 
 import 'package:http/http.dart' as http;
 
@@ -25,4 +27,19 @@ class TreinoService {
       return ret;
     }
   }
+  Future<bool> addResultadoTreino(ResultadoTreinoDTO resultadoTreinoDTO) async {
+    print(jsonEncode(resultadoTreinoDTO.toJson()));
+    final response = await http.post(Uri.parse('$SERVIDOR/resultadoTreino'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(resultadoTreinoDTO.toJson()));
+        return (response.statusCode == 200);
+  }
+
 }
+
+
+ 
+
+  

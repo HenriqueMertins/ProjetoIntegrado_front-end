@@ -17,7 +17,6 @@ class TreinoDTO {
   int rep;
   int dia;
 
-  // TreinoDTO(this.id, this.personalId, this.nome, this.carga, this.serie, this.rep);
   TreinoDTO(this.personal_id, this.id, this.nome, this.carga, this.serie, this.rep, this.dia);
 
 

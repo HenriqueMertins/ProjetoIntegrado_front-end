@@ -61,7 +61,7 @@ class _ListPupilState extends State<ListPupil> {
                   return Card(
                     margin: const EdgeInsets.all(16.0),
                     child: ListTile(
-                      leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), // Ícone de foco
+                      leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), 
                       title: Text(
                         aluno.nome,
                         style: const TextStyle(
