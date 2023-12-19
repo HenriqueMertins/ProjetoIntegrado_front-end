@@ -14,7 +14,7 @@ ResultadoTreinoDTO _$ResultadoTreinoDTOFromJson(Map<String, dynamic> json) =>
       json['carga'] as int,
       json['serie'] as int,
       json['rep'] as int,
-      json['data'] as int,
+      DateTime.parse(json['data'] as String),
     );
 
 Map<String, dynamic> _$ResultadoTreinoDTOToJson(ResultadoTreinoDTO instance) =>
@@ -25,5 +25,5 @@ Map<String, dynamic> _$ResultadoTreinoDTOToJson(ResultadoTreinoDTO instance) =>
       'carga': instance.carga,
       'serie': instance.serie,
       'rep': instance.rep,
-      'data': instance.data,
+      'data': instance.data.toIso8601String(),
     };

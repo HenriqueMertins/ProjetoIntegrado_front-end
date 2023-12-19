@@ -14,7 +14,7 @@ class ResultadoTreinoDTO {
   int carga;
   int serie;
   int rep;
-  int data;
+  DateTime data;
 
   ResultadoTreinoDTO(this.treino_id, this.aluno_id, this.id, this.carga, this.serie, this.rep, this.data);
 
