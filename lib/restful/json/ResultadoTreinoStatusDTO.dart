@@ -20,9 +20,21 @@ class ResultadoTreinoStatusDTO {
   int resulserie;
   int resulrep;
   DateTime resuldata;
+  int realizado;
 
-  ResultadoTreinoStatusDTO(this.treinoid, this.nome, this.carga, this.serie, this.rep, this.dia, this.resultid, this.resulcarga, this.resulserie, this.resulrep, this.resuldata );
-
+  ResultadoTreinoStatusDTO(
+      this.treinoid,
+      this.nome,
+      this.carga,
+      this.serie,
+      this.rep,
+      this.dia,
+      this.resultid,
+      this.resulcarga,
+      this.resulserie,
+      this.resulrep,
+      this.resuldata,
+      this.realizado);
 
   factory ResultadoTreinoStatusDTO.fromJson(Map<String, dynamic> json) =>
       _$ResultadoTreinoStatusDTOFromJson(json);

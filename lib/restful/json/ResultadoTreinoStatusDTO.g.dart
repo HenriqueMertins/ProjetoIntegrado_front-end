@@ -20,6 +20,7 @@ ResultadoTreinoStatusDTO _$ResultadoTreinoStatusDTOFromJson(
       json['resulserie'] as int,
       json['resulrep'] as int,
       DateTime.parse(json['resuldata'] as String),
+      json['realizado'] as int,
     );
 
 Map<String, dynamic> _$ResultadoTreinoStatusDTOToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$ResultadoTreinoStatusDTOToJson(
       'resulserie': instance.resulserie,
       'resulrep': instance.resulrep,
       'resuldata': instance.resuldata.toIso8601String(),
+      'realizado': instance.realizado,
     };
