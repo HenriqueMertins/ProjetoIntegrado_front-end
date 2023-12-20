@@ -14,8 +14,8 @@ class myDate extends StatefulWidget {
 class _myDateState extends State<myDate> {
   DateTime today = DateTime.now();
   TextEditingController nomeController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController telefoneController = TextEditingController();
+  TextEditingController bracoController = TextEditingController();
+  TextEditingController pernaController = TextEditingController();
   String? sexo; 
   TextEditingController dataNascimentoController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
@@ -23,8 +23,8 @@ class _myDateState extends State<myDate> {
   @override
   void dispose() {
     nomeController.dispose();
-    emailController.dispose();
-    telefoneController.dispose();
+    bracoController.dispose();
+    pernaController.dispose();
     dataNascimentoController.dispose();
     pesoController.dispose();
     super.dispose();
@@ -73,21 +73,21 @@ class _myDateState extends State<myDate> {
                     ),
                   ),
                   const Text(
-                    'E-mail:',
+                    'Braço:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
-                    controller: emailController,
+                    controller: bracoController,
                     decoration: const InputDecoration(
-                      hintText: 'Digite seu e-mail',
+                      hintText: 'Digite o tamanho do seu braço',
                     ),
                   ),
                   const Text(
-                    'Telefone:',
+                    'quadriceps:',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
-                    controller: telefoneController,
+                    controller: pernaController,
                     decoration: const InputDecoration(
                         hintText: 'Digite seu telefone', counterText: ""),
                     keyboardType: TextInputType.phone,
@@ -121,13 +121,13 @@ class _myDateState extends State<myDate> {
                     ),
                   ),
                   const Text(
-                    'Data de Nascimento:',
+                    'Cintura',
                     style: TextStyle(fontSize: 18),
                   ),
                   TextFormField(
                     controller: dataNascimentoController,
                     decoration: const InputDecoration(
-                        hintText: 'DD/MM/AAAA', counterText: ""),
+                        hintText: 'Digite o tamanho da sua cintura', counterText: ""),
                     keyboardType: TextInputType.datetime,
                     maxLength: 8,
                   ),

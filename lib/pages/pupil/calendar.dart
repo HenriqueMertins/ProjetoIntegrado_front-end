@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:trainingcallendar/restful/client/TreinoService.dart';
@@ -47,16 +48,6 @@ class _calendarPageState extends State<calendarPage> {
       today = day;
     });
   }
-
-  // Future<void> _treinos(DateTime selectedDay) async {
-  //   int idLogin = await SessionManager().get("idLogin");
-  //   var data = await TreinoService().listTreino(idLogin, selectedDay.weekday);
-  //   treinos = data.map((treinoData) {
-  //     return Treino(treinoData.id, treinoData.nome, treinoData.carga,
-  //         treinoData.serie, treinoData.rep, treinoData.dia);
-  //   }).toList();
-  //   setState(() {});
-  // }
 
   Future<void> _treinos(DateTime selectedDay) async {
     int idLogin = await SessionManager().get("idLogin");
@@ -145,8 +136,7 @@ class _calendarPageState extends State<calendarPage> {
                               ),
                             ],
                           ),
-                          SizedBox(
-                              width: 20), // Espaço entre o treino e o resultado
+                          const SizedBox(width: 20),
                           Expanded(
                             child: Visibility(
                               visible: treino.realizado == 1,
@@ -172,8 +162,7 @@ class _calendarPageState extends State<calendarPage> {
                         ],
                       ),
                       trailing: Visibility(
-                        visible: treino.realizado ==
-                            0, // Botão visível apenas se realizado for 0
+                        visible: treino.realizado == 0,
                         child: ElevatedButton(
                           onPressed: () {
                             _showAddTrainingDialog(context, treino.treinoid);
@@ -247,8 +236,6 @@ class _calendarPageState extends State<calendarPage> {
       int carga = int.parse(pesoController.text);
       int rep = int.parse(repeticoesController.text);
 
-      // print("alunoId $alunoId    treinoid $treinoId    today $today" );
-
       String formattedDate =
           "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
 
@@ -307,15 +294,27 @@ class _calendarPageState extends State<calendarPage> {
               TextField(
                 controller: pesoController,
                 decoration: const InputDecoration(labelText: 'Peso (kg)'),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
               TextField(
                 controller: seriesController,
                 decoration:
                     const InputDecoration(labelText: 'Número de Séries'),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
               TextField(
                 controller: repeticoesController,
                 decoration: const InputDecoration(labelText: 'Repetições'),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
               ),
             ],
           ),
