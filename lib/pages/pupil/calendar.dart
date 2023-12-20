@@ -125,34 +125,67 @@ class _calendarPageState extends State<calendarPage> {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Column(
+                      subtitle: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Carga: ${treino.carga}",
-                            style: const TextStyle(fontSize: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Carga: ${treino.carga}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                "Série: ${treino.serie}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                "Rep: ${treino.rep}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "Série: ${treino.serie}",
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                          Text(
-                            "Rep: ${treino.rep}",
-                            style: const TextStyle(fontSize: 16),
+                          SizedBox(
+                              width: 20), // Espaço entre o treino e o resultado
+                          Expanded(
+                            child: Visibility(
+                              visible: treino.realizado == 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Resultado Carga: ${treino.resulcarga}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "Resultado Série: ${treino.resulserie}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                  Text(
+                                    "Resultado Rep: ${treino.resulrep}",
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      trailing: ElevatedButton(
-                        onPressed: () {
-                          _showAddTrainingDialog(context, treino.treinoid);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 199, 15, 8),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
+                      trailing: Visibility(
+                        visible: treino.realizado ==
+                            0, // Botão visível apenas se realizado for 0
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _showAddTrainingDialog(context, treino.treinoid);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 199, 15, 8),
+                          ),
+                          child: const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -231,7 +264,7 @@ class _calendarPageState extends State<calendarPage> {
         dateObject,
       );
 
-      var catchError = TreinoService()
+      TreinoService()
           .addResultadoTreino(resultadoTreinoDTO)
           .then((ret) => _msg(ret))
           .catchError((onError) => _fail());
@@ -272,13 +305,13 @@ class _calendarPageState extends State<calendarPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
+                controller: pesoController,
+                decoration: const InputDecoration(labelText: 'Peso (kg)'),
+              ),
+              TextField(
                 controller: seriesController,
                 decoration:
                     const InputDecoration(labelText: 'Número de Séries'),
-              ),
-              TextField(
-                controller: pesoController,
-                decoration: const InputDecoration(labelText: 'Peso (kg)'),
               ),
               TextField(
                 controller: repeticoesController,

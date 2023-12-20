@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPupilPage> {
   }
 
   void _loginPress() async {
-    var catchError = AlunoService()
+    AlunoService()
         .login(controlCpfField.text, controlSenhaField.text)
         .then((loginRetDTO) => _go(loginRetDTO))
         .catchError((onError) => _fail());

@@ -208,7 +208,7 @@ class _RegisterTrainingState extends State<RegisterTraining> {
 
       TreinoDTO treinoDTO = TreinoDTO(personalId, 0, nome, carga, serie, rep, dia);
 
-      var catchError = ProfessorService()
+      ProfessorService()
           .addTreino(treinoDTO)
           .then((ret) => _msg(ret))
           .catchError((onError) => _fail());

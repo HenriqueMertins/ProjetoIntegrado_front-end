@@ -106,10 +106,10 @@ class _LoginPageState extends State<LoginProfessorPage> {
   }
 
   void _loginPress() async {
-    var catchError = ProfessorService()
+    ProfessorService()
         .login(controlCpfField.text, controlSenhaField.text)
         .then((loginRetDTO) => _go(loginRetDTO))
-        .catchError((onError) => _fail());
+        .catchError((onError) => _fail(onError));
   }
 
   void _go(LoginRetDTO loginDTO) async {
@@ -119,7 +119,8 @@ class _LoginPageState extends State<LoginProfessorPage> {
     await Navigator.of(context).pushNamed("/choiceProfessor");
   }
 
-  void _fail() async {
+  void _fail(onError) async {
+    print(onError); 
     SessionManager().set("token", "");
     SessionManager().set("type", "");
     return await showDialog(
