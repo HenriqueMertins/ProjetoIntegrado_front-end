@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
@@ -246,9 +247,9 @@ class _RegisterTrainingState extends State<RegisterTraining> {
     // print(_msg("mensagem"));
     String message;
     if (ret) {
-      message = 'Treino registrado com sucesso';
-    } else {
       message = 'Não foi possível registrar o treino';
+    } else {
+      message = 'Treino registrado com sucesso';
     }
 
     showDialog(

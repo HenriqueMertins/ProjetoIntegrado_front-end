@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +16,7 @@ class _myDateState extends State<myDate> {
   TextEditingController nomeController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController telefoneController = TextEditingController();
-  String? sexo; // Adicionado para armazenar o valor selecionado no sexo.
+  String? sexo; 
   TextEditingController dataNascimentoController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
 
@@ -129,10 +130,6 @@ class _myDateState extends State<myDate> {
                         hintText: 'DD/MM/AAAA', counterText: ""),
                     keyboardType: TextInputType.datetime,
                     maxLength: 8,
-                    // inputFormatters: [
-                    //   FilteringTextInputFormatter.digitsOnly,
-                    //   DataNascimentoInputFormatter(),
-                    // ],
                   ),
                   const Text(
                     'Peso:',
@@ -156,7 +153,7 @@ class _myDateState extends State<myDate> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: const Color.fromARGB(
-                            255, 199, 15, 8), // Cor do texto em branco
+                            255, 199, 15, 8), 
                       ),
                       child: const Text('Salvar'),
                     ),

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
-import 'package:trainingcallendar/restful/json/LoginDTO.dart';
 
 import '../../restful/json/LoginRetDTO.dart';
 
@@ -98,7 +97,6 @@ class _LoginPageState extends State<LoginPupilPage> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     controlCpfField.dispose();
     controlSenhaField.dispose();
     super.dispose();

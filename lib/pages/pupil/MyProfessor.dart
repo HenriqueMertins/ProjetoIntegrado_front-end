@@ -1,7 +1,6 @@
-import 'dart:convert';
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
-import 'package:trainingcallendar/restful/client/ProfessorService.dart';
 import 'package:trainingcallendar/restful/json/ProfessorDTO.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 
@@ -68,7 +67,7 @@ class _MyProfessorState extends State<MyProfessor> {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), // Ícone de foco
+                            leading: const Icon(Icons.face, size: 40.0, color: Colors.blue), 
                             title: Text(
                               professor.nome,
                               style: const TextStyle(
