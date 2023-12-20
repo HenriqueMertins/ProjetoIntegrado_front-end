@@ -4,9 +4,9 @@ import 'package:trainingcallendar/constants/WebService.dart';
 import 'package:trainingcallendar/restful/json/ResultadoTreinoDTO.dart';
 import 'package:trainingcallendar/restful/json/TreinoDTO.dart';
 
-
 import 'package:http/http.dart' as http;
 
+import '../json/ResultadoTreinoStatusDTO.dart';
 
 class TreinoService {
 
@@ -27,6 +27,26 @@ class TreinoService {
       return ret;
     }
   }
+
+  Future<List<ResultadoTreinoStatusDTO>> listResultadosTreino(int personalId, int alunoId, int dia, DateTime data) async {
+    final response = await http.get(
+      Uri.parse('$SERVIDOR/resultadoTreino/$personalId/$alunoId/$dia/$data'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    List<ResultadoTreinoStatusDTO> ret = List<ResultadoTreinoStatusDTO>.empty(growable: true);
+    if (response.statusCode == 200) {
+      List<dynamic> retTemp = (jsonDecode(response.body) as List<dynamic>);
+      retTemp.forEach((element) {
+        ret.add(ResultadoTreinoStatusDTO.fromJson(element));
+      });
+      return ret;
+    } else {
+      return ret;
+    }
+  }
+
   Future<bool> addResultadoTreino(ResultadoTreinoDTO resultadoTreinoDTO) async {
     print(jsonEncode(resultadoTreinoDTO.toJson()));
     final response = await http.post(Uri.parse('$SERVIDOR/resultadoTreino'),

@@ -8,6 +8,7 @@ part of 'LoginRetDTO.dart';
 
 LoginRetDTO _$LoginRetDTOFromJson(Map<String, dynamic> json) => LoginRetDTO(
       json['msg'] as String,
+      json['personalId'] as int,
       json['token'] as String,
     )..idLogin = json['idLogin'] as int;
 
@@ -15,5 +16,6 @@ Map<String, dynamic> _$LoginRetDTOToJson(LoginRetDTO instance) =>
     <String, dynamic>{
       'msg': instance.msg,
       'idLogin': instance.idLogin,
+      'personalId': instance.personalId,
       'token': instance.token,
     };

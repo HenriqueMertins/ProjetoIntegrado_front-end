@@ -4,6 +4,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:trainingcallendar/restful/client/TreinoService.dart';
 import 'package:trainingcallendar/restful/json/ResultadoTreinoDTO.dart';
 
+import '../../restful/json/ResultadoTreinoStatusDTO.dart';
+
 class Treino {
   final int id;
   final String nome;
@@ -29,7 +31,7 @@ class _calendarPageState extends State<calendarPage> {
   TextEditingController pesoController = TextEditingController();
   TextEditingController repeticoesController = TextEditingController();
 
-  List<Treino> treinos = [];
+  List<ResultadoTreinoStatusDTO> treinos = [];
   DateTime today = DateTime.now();
 
   @override
@@ -46,12 +48,35 @@ class _calendarPageState extends State<calendarPage> {
     });
   }
 
+  // Future<void> _treinos(DateTime selectedDay) async {
+  //   int idLogin = await SessionManager().get("idLogin");
+  //   var data = await TreinoService().listTreino(idLogin, selectedDay.weekday);
+  //   treinos = data.map((treinoData) {
+  //     return Treino(treinoData.id, treinoData.nome, treinoData.carga,
+  //         treinoData.serie, treinoData.rep, treinoData.dia);
+  //   }).toList();
+  //   setState(() {});
+  // }
+
   Future<void> _treinos(DateTime selectedDay) async {
     int idLogin = await SessionManager().get("idLogin");
-    var data = await TreinoService().listTreino(idLogin, selectedDay.weekday);
+    int personalId = await SessionManager().get("personalId");
+    var data = await TreinoService().listResultadosTreino(
+        personalId, idLogin, selectedDay.weekday, selectedDay);
     treinos = data.map((treinoData) {
-      return Treino(treinoData.id, treinoData.nome, treinoData.carga,
-          treinoData.serie, treinoData.rep, treinoData.dia);
+      return ResultadoTreinoStatusDTO(
+          treinoData.treinoid,
+          treinoData.nome,
+          treinoData.carga,
+          treinoData.serie,
+          treinoData.rep,
+          treinoData.dia,
+          treinoData.resultid,
+          treinoData.resulcarga,
+          treinoData.resulserie,
+          treinoData.resulrep,
+          treinoData.resuldata,
+          treinoData.realizado);
     }).toList();
     setState(() {});
   }
@@ -119,7 +144,7 @@ class _calendarPageState extends State<calendarPage> {
                       ),
                       trailing: ElevatedButton(
                         onPressed: () {
-                          _showAddTrainingDialog(context, treino.id);
+                          _showAddTrainingDialog(context, treino.treinoid);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -184,17 +209,17 @@ class _calendarPageState extends State<calendarPage> {
   void _addResultado(int treinoId) async {
     if (_valida()) {
       int alunoId = await SessionManager().get("idLogin");
-      
+
       int serie = int.parse(seriesController.text);
       int carga = int.parse(pesoController.text);
       int rep = int.parse(repeticoesController.text);
 
       // print("alunoId $alunoId    treinoid $treinoId    today $today" );
 
-      String formattedDate = "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+      String formattedDate =
+          "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
 
       DateTime dateObject = DateTime.parse(formattedDate);
-
 
       ResultadoTreinoDTO resultadoTreinoDTO = ResultadoTreinoDTO(
         treinoId,
@@ -206,14 +231,13 @@ class _calendarPageState extends State<calendarPage> {
         dateObject,
       );
 
-        var catchError = TreinoService()
-            .addResultadoTreino(resultadoTreinoDTO)
-            .then((ret) => _msg(ret))
-            .catchError((onError) => _fail());
-        _clearFields();
-          Navigator.of(context).pop();
+      var catchError = TreinoService()
+          .addResultadoTreino(resultadoTreinoDTO)
+          .then((ret) => _msg(ret))
+          .catchError((onError) => _fail());
+      _clearFields();
+      Navigator.of(context).pop();
     }
- 
   }
 
   void _clearFields() {
@@ -238,7 +262,7 @@ class _calendarPageState extends State<calendarPage> {
     }
   }
 
-  void _showAddTrainingDialog(BuildContext context, int treinoId ) {
+  void _showAddTrainingDialog(BuildContext context, int treinoId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -268,7 +292,7 @@ class _calendarPageState extends State<calendarPage> {
                 foregroundColor: Colors.red,
               ),
               onPressed: () {
-               _addResultado(treinoId);
+                _addResultado(treinoId);
               },
               child: const Text("Adicionar Treino"),
             ),
