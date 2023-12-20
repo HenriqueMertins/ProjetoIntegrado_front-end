@@ -3,6 +3,7 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:trainingcallendar/restful/client/TreinoService.dart';
 import 'package:trainingcallendar/restful/json/ResultadoTreinoDTO.dart';
+import 'package:trainingcallendar/restful/json/TreinoStatusDTO.dart';
 
 class Treino {
   final int id;
@@ -29,7 +30,7 @@ class _calendarPageState extends State<calendarPage> {
   TextEditingController pesoController = TextEditingController();
   TextEditingController repeticoesController = TextEditingController();
 
-  List<Treino> treinos = [];
+  List<TreinoStatusDTO> treinos = [];
   DateTime today = DateTime.now();
 
   @override
@@ -55,6 +56,22 @@ class _calendarPageState extends State<calendarPage> {
     }).toList();
     setState(() {});
   }
+
+   Future<void> _treinos2(DateTime selectedDay) async {
+    int idLogin = await SessionManager().get("idLogin");
+    int personalId = await SessionManager().get("personalId");
+    var data = await TreinoService().listResultadosTreino(personalId, idLogin, selectedDay.weekday, selectedDay);
+    treinos = data.map((treinoData) {
+      treinos.treinosFeitos;
+      var treinosNaoFeitos = treinos.treinosNaoFeitos;
+
+
+      return Treino(treinoData.id, treinoData.nome, treinoData.carga,
+          treinoData.serie, treinoData.rep, treinoData.dia);
+    }).toList();
+    setState(() {});
+  }
+  
 
   @override
   Widget build(BuildContext context) {

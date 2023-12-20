@@ -10,9 +10,10 @@ part 'LoginRetDTO.g.dart';
 class LoginRetDTO {
   String msg;
   int idLogin=0;
+  int personalId;
   String token;
 
-  LoginRetDTO(this.msg, this.token);
+  LoginRetDTO(this.msg, this.personalId, this.token);
 
   factory LoginRetDTO.fromJson(Map<String, dynamic> json) =>
       _$LoginRetDTOFromJson(json);

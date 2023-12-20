@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:trainingcallendar/restful/client/AlunoService.dart';
+import 'package:trainingcallendar/restful/json/LoginDTO.dart';
 
 import '../../restful/json/LoginRetDTO.dart';
 
@@ -114,6 +115,7 @@ class _LoginPageState extends State<LoginPupilPage> {
     SessionManager().set("token", loginDTO.token);
     SessionManager().set("type", "pupil");
     SessionManager().set("idLogin",loginDTO.idLogin);
+    SessionManager().set("personalId",loginDTO.personalId);
     await Navigator.of(context).pushNamed("/firstScenePupil");
   }
 
